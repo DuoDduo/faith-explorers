@@ -1,0 +1,169 @@
+@media screen and (max-width: 1010px) {
+
+    .searchbar,
+    .subbtn {
+        display: none;
+    }
+
+    .toggle {
+        display: flex;
+    }
+
+    .navlist {
+        position: absolute;
+        right: 0;
+        top: 60px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.22);
+        border-radius: 10px;
+        height: 400px;
+        display: none;
+    }
+
+    .navlist ul {
+        margin-top: 30px;
+        width: 250px;
+        flex-direction: column;
+    }
+
+    .body .navlist {
+        background-color: #1c2845;
+    }
+
+    body::after {
+        display: none;
+    }
+
+    .bioimg::before {
+        display: none;
+    }
+
+    .biosec {
+        flex-direction: column;
+    }
+
+    .bio {
+        padding: 0 30px;
+    }
+
+    .bioimg {
+        width: 70%;
+    }
+
+    .bio p {
+        width: 100%;
+    }
+
+    .emailsub {
+        width: 100%;
+    }
+
+    .hottopicssec {
+        flex-direction: column;
+        align-items: center;
+        height: 450px;
+        margin: 20px;
+    }
+
+    .hotcards {
+        width: 100%;
+    }
+
+    .bigtitle {
+        padding: 0 20px;
+    }
+
+    .rightshadowimg::after {
+        display: none;
+    }
+
+    .editorcards {
+        padding: 20px;
+    }
+
+    .edcard:nth-child(1),
+    .edcard:nth-child(2),
+    .edcard:nth-child(3),
+    .edcard:nth-child(4),
+    .edcard:nth-child(5) {
+        min-width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .leftshadowimg::after {
+        display: none;
+    }
+
+    .tegsec {
+        padding: 10px 20px;
+    }
+
+    .tegsec a {
+        width: 40%;
+    }
+
+    .recentpostsec {
+        flex-direction: column;
+    }
+
+    .posts {
+        padding: 20px;
+    }
+
+    .post {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .post a,
+    .post a img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .postdetails {
+        padding: 10px 0;
+    }
+
+    .postslider {
+        width: 100%;
+        padding: 0 20px;
+        margin: 0;
+    }
+    .footer{
+        margin: 10px 20px;
+    }
+    footer {
+        padding: 30px;
+    }
+
+    .footersec {
+        flex-direction: column;
+    }
+
+    .themeauthor {
+        flex-direction: column;
+    }
+
+    .createdby {
+        margin: 10px 0;
+    }
+    
+}
+
+@media screen and (max-width: 430px) {
+    .social {
+        flex-direction: column;
+    }
+    .createdby {
+        text-align: center;
+    }
+    .logofooter p{
+        width: 100%;
+    }
+    .bio h1{
+        font-size: 30px;
+    }
+}
