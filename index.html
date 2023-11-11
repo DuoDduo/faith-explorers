@@ -282,7 +282,7 @@
             </div>
             <div class="edcard" data-aos="fade-up">
                 <a href="/">
-                    <img src="/sopimages/HOE MAY-49.jpg" alt="">
+                    <img src="./sopimages/HOE MAY-49.jpg" alt="">
                     <div class="edcarddetl">
                         <div class="tegtime flex">
                             <h5>#Lifestyle</h5>
@@ -400,21 +400,21 @@
             <p>Most searched keywords</p>
         </div>
         <div class="tegsec container flex">
-            <a href="/" data-aos="zoom-out"><img src="/img/business.png" alt="" >
+            <a href="/" data-aos="zoom-out"><img src="./img/business.png" alt="" >
                 Faith and Spirituality</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/nature.png" alt="">
+            <a href="/" data-aos="zoom-out"><img src="./img/nature.png" alt="">
                 Relationships and Marriage</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/plant.png" alt="">Singleness and Celibacy</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/interior.png" alt="">Parenting and Family</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/minimal.png" alt="">Christian Ethics</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/animal.png" alt="">Discipleship and Christian Ministry</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/space.png" alt="">Financial Stewardship:</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/food.png" alt="">
+            <a href="/" data-aos="zoom-out"><img src="./img/plant.png" alt="">Singleness and Celibacy</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/interior.png" alt="">Parenting and Family</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/minimal.png" alt="">Christian Ethics</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/animal.png" alt="">Discipleship and Christian Ministry</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/space.png" alt="">Financial Stewardship:</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/food.png" alt="">
                 Forgiveness and Reconciliation</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/fashion.png" alt="">Worship and Liturgy</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/lifestyle.png" alt="">Christian Leadership</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/culture.png" alt="">Emotional Health</a>
-            <a href="/" data-aos="zoom-out"><img src="/img/travel.png" alt="">Spiritual Disciplines</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/fashion.png" alt="">Worship and Liturgy</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/lifestyle.png" alt="">Christian Leadership</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/culture.png" alt="">Emotional Health</a>
+            <a href="/" data-aos="zoom-out"><img src="./img/travel.png" alt="">Spiritual Disciplines</a>
 
         </div>
        
@@ -566,6 +566,90 @@
     <script src="./js/app.js"></script>
     
     <script>
+        // hotcards scroll
+
+
+const cardWrapper = document.querySelector('.hotcards')
+const cardWrapperChildren = Array.from(cardWrapper.children)
+const widthToScroll = cardWrapper.children[0].offsetWidth
+const arrowPrev = document.querySelector('.leftbtn')
+const arrowNext = document.querySelector('.rightbtn')
+const cardBounding = cardWrapper.getBoundingClientRect()
+const column = Math.floor(cardWrapper.offsetWidth / (widthToScroll + 24))
+let currScroll = 0
+let initPos = 0
+let clicked = false
+
+cardWrapperChildren.slice(-column).reverse().forEach(item => {
+  cardWrapper.insertAdjacentHTML('afterbegin', item.outerHTML)
+})
+
+cardWrapperChildren.slice(0, column).forEach(item => {
+  cardWrapper.insertAdjacentHTML('beforeend', item.outerHTML)
+})
+
+const cardImageAndLink = cardWrapper.querySelectorAll('.hcard img, .hcard a')
+cardImageAndLink.forEach(item => {
+  item.setAttribute('draggable', false)
+})
+
+cardWrapper.classList.add('no-smooth')
+cardWrapper.scrollLeft = cardWrapper.offsetWidth
+cardWrapper.classList.remove('no-smooth')
+
+arrowPrev.onclick = function () {
+  cardWrapper.scrollLeft -= widthToScroll
+}
+
+arrowNext.onclick = function () {
+  cardWrapper.scrollLeft += widthToScroll
+}
+
+cardWrapper.onmousedown = function (e) {
+  cardWrapper.classList.add('grab')
+  initPos = e.clientX - cardBounding.left
+  currScroll = cardWrapper.scrollLeft
+  clicked = true
+}
+
+cardWrapper.onmousemove = function (e) {
+  if (clicked) {
+    const xPos = e.clientX - cardBounding.left
+    cardWrapper.scrollLeft = currScroll + -(xPos - initPos)
+  }
+}
+
+cardWrapper.onmouseup = mouseUpAndLeave
+cardWrapper.onmouseleave = mouseUpAndLeave
+
+function mouseUpAndLeave() {
+  cardWrapper.classList.remove('grab')
+  clicked = false
+}
+
+let autoScroll
+
+cardWrapper.onscroll = function () {
+  if (cardWrapper.scrollLeft === 0) {
+    cardWrapper.classList.add('no-smooth')
+    cardWrapper.scrollLeft = cardWrapper.scrollWidth - (2 * cardWrapper.offsetWidth)
+    cardWrapper.classList.remove('no-smooth')
+  } else if (cardWrapper.scrollLeft === cardWrapper.scrollWidth - cardWrapper.offsetWidth) {
+    cardWrapper.classList.add('no-smooth')
+    cardWrapper.scrollLeft = cardWrapper.offsetWidth
+    cardWrapper.classList.remove('no-smooth')
+  }
+
+  if (autoScroll) {
+    clearTimeout(autoScroll)
+  }
+
+  autoScroll = setTimeout(() => {
+    cardWrapper.classList.remove('no-smooth')
+    cardWrapper.scrollLeft += widthToScroll
+  }, 3000)
+}
+
     
         AOS.init({
             duration: 800,

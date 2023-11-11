@@ -1161,12 +1161,13 @@ footer {
   flex-wrap: wrap;
   gap: 2rem;
   margin-top: 5rem;
+  padding: 20px;
 }
 
 .about .video-container {
   -webkit-box-flex: 1;
-  -ms-flex: 1 1 35rem;
-  flex: 1 1 35rem;
+  -ms-flex: 1 1 32rem;
+  flex: 1 1 32rem;
 }
 
 .about .video-container .image {
@@ -1227,7 +1228,7 @@ footer {
     url(../sopimages/HOE\ MAY-37.jpg) no-repeat;
   background-size: cover;
   background-position: center;
-  padding: 5rem 2rem;
+  padding: 3rem 2rem;
   background-attachment: fixed;
   text-align: center;
   margin-top: 5rem;
@@ -1246,7 +1247,7 @@ footer {
 }
 
 .banner .content p {
-  max-width: 60rem;
+  max-width: 50rem;
   margin: 1rem auto;
   font-size: 16px;
   color: #f8f9fc;

@@ -81,11 +81,7 @@
         padding: 20px;
     }
 
-    .edcard:nth-child(1),
-    .edcard:nth-child(2),
-    .edcard:nth-child(3),
-    .edcard:nth-child(4),
-    .edcard:nth-child(5) {
+    .edcard{
         min-width: 100%;
         max-width: 100%;
         height: auto;
@@ -96,11 +92,12 @@
     }
 
     .tegsec {
-        padding: 10px 20px;
+        padding: 10px 7px;
+        font-size: 13px;
     }
 
     .tegsec a {
-        width: 40%;
+        width: 45%;
     }
 
     .recentpostsec {
@@ -132,11 +129,12 @@
         padding: 0 20px;
         margin: 0;
     }
-    .footer{
+    /* .footer{
         margin: 10px 20px;
-    }
+    } */
     footer {
         padding: 30px;
+        margin: 0;
     }
 
     .footersec {
