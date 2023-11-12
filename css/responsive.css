@@ -34,26 +34,10 @@
         display: none;
     }
 
-    .bioimg::before {
-        display: none;
+    
+    .contact{
+        margin: 0;
     }
-
-    .biosec {
-        flex-direction: column;
-    }
-
-    .bio {
-        padding: 0 30px;
-    }
-
-    .bioimg {
-        width: 70%;
-    }
-
-    .bio p {
-        width: 100%;
-    }
-
     .emailsub {
         width: 100%;
     }
@@ -73,10 +57,7 @@
         padding: 0 20px;
     }
 
-    .rightshadowimg::after {
-        display: none;
-    }
-
+ 
     .editorcards {
         padding: 20px;
     }
@@ -87,9 +68,7 @@
         height: auto;
     }
 
-    .leftshadowimg::after {
-        display: none;
-    }
+  
 
     .tegsec {
         padding: 10px 7px;
@@ -132,10 +111,10 @@
     /* .footer{
         margin: 10px 20px;
     } */
-    footer {
+    /* footer {
         padding: 30px;
         margin: 0;
-    }
+    } */
 
     .footersec {
         flex-direction: column;
@@ -151,7 +130,7 @@
     
 }
 
-@media screen and (max-width: 430px) {
+/* @media screen and (max-width: 430px) {
     .social {
         flex-direction: column;
     }
@@ -164,4 +143,4 @@
     .bio h1{
         font-size: 30px;
     }
-}
+} */
