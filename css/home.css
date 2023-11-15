@@ -504,22 +504,22 @@ header nav {
   background-color: rgb(233, 222, 248);
   overflow: hidden;
   border-radius: 15px;
-  padding: 30px;
+  padding: 20px;
   min-width: 32%;
   max-width: 32%;
-  height: 450px;
+  height: 600px;
   color: #000;
 }
 
 .edcard a img {
   width: 100%;
-  height: 63%;
+  height: 60%;
   object-fit: cover;
   border-radius: 14px;
 }
 
 .edcard a img {
-  height: 55%;
+  height: 50%;
 }
 
 .edcard {
@@ -530,13 +530,13 @@ header nav {
 .edcarddetl a h2 {
   color: #000;
   margin: 20px 0;
-  transition: 0.3s linear;
-  font-size: 17px;
+  /* transition: 0.3s linear; */
+  font-size: 16px;
 }
 
-.edcarddetl a h2:hover {
+/* .edcarddetl a h2:hover {
   color: #53179a;
-}
+} */
 
 .tegtime {
   justify-content: space-between;

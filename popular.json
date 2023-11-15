@@ -1,0 +1,104 @@
+{
+    "recentPosts": [
+      {
+        "imageSrc": "./sopimages/HOE MAY-82.jpg",
+        "category": "Relationship and Marriage",
+        "title": "Finding Hope and Healing After Divorce: A Christian Approach",
+        "content": "Take small but impactful steps towards environmental stewardship and sustainability within the comfort of your own home, contributing to a greener planet",
+        "tags": ["#Travel", "#Lifestyle"],
+        "readTime": 5
+      },
+      {
+        "imageSrc": "./sopimages/HOE MAY-58.jpg",
+        "category": "Relationship and Marriage",
+        "title": "Understanding and Embracing God's Design for Sexuality",
+        "content": "A healthy Lifestyle is the way of life adopted by an individual, a group, or a society. The word “lifestyle” was first coined by Alfred Adler who tried to identify the several factors that govern the quality of life led by different individuals.",
+        "tags": ["#Travel", "#Lifestyle"],
+        "readTime": 5
+      },
+      {
+        "imageSrc": "./sopimages/broisrael (3).jpg",
+        "category": "Christian Ethics",
+        "title": "Living with Integrity: Honoring God in Your Words and Actions",
+        "content": "The Taj Mahal is located on the right bank of the Yamuna River in a vast Mughal garden that encompasses nearly 17 hectares, in the Agra District in Uttar Pradesh.",
+        "tags": ["#Travel", "#Lifestyle"],
+        "readTime": 5
+      },
+      {
+        "imageSrc": "./sopimages/HOE MAY-52.jpg",
+        "category": "Emotional Health",
+        "title": "Finding Balance in Self-Care: Nurturing Your Mind, Body, and Spirit",
+        "content": "It’s always fun to learn new things about the universe because it’s so mysterious yet we keep discovering more. These fascinating universe facts will make you realize how we’re all just a tiny speck in the grand scheme of things.",
+        "tags": ["#Travel", "#Lifestyle"],
+        "readTime": 5
+      }
+    ],
+    "popularPosts": [
+      {
+        "imageSrc": "./img/work-freelancer.png",
+        "title": "Embracing Diversity: Celebrating and Valuing Every Person's Worth",
+        "readTime": 5,
+        "date": "25 April 2023"
+      },
+      {
+        "imageSrc": "./img/work-freelancer2.png",
+        "title": "Practicing Gratitude: Cultivating a Thankful Heart in All Circumstances",
+        "readTime": 5,
+        "date": "25 April 2023"
+      },
+      {
+        "imageSrc": "./img/work-freelancer3.png",
+        "title": "Stewardship of Time: Balancing Priorities in a Busy World",
+        "readTime": 5,
+        "date": "25 April 2023"
+      },
+      {
+        "imageSrc": "./img/work-freelancer4.png",
+        "title": "Practicing Gratitude: Cultivating a Thankful Heart in All Circumstances",
+        "readTime": 5,
+        "date": "25 April 2023"
+      },
+      {
+        "imageSrc": "./img/work-freelancer5.png",
+        "title": "Financial Stewardship: Honoring God with Your Finances",
+        "readTime": 5,
+        "date": "25 April 2023"
+      }
+    
+    ],
+    "latestComment": [
+      {
+        "comment": "Wow, this article on building a Christ-centered relationship really spoke to me. I appreciate the practical tips and biblical principles shared here.",
+        "author": {
+          "name": "Blessing James",
+          "avatar": "./sopimages/Mummy FLo.jpg"
+        },
+        "date": "25 August 2023"
+      },
+      {
+        "comment": "As a single person, I found this article on navigating singleness with purpose and joy incredibly encouraging. It's great to see the importance of embracing this season and finding fulfillment in God.",
+        "author": {
+          "name": "Blessing James",
+          "avatar": "./sopimages/Mummy FLo.jpg"
+        },
+        "date": "25 August 2023"
+      },
+      {
+        "comment": "The insights shared in the article about forgiveness in relationships are so powerful. It's a reminder of the transformative power of grace and how it can restore and heal broken relationships.",
+        "author": {
+          "name": "Blessing James",
+          "avatar": "./sopimages/Mummy FLo.jpg"
+        },
+        "date": "25 August 2023"
+      },
+      {
+        "comment": "This article on prayer's role in strengthening relationships was a timely read for me. It reminded me of the power of prayer in fostering deeper connections and resolving conflicts.",
+        "author": {
+          "name": "Blessing James",
+          "avatar": "./sopimages/Mummy FLo.jpg"
+        },
+        "date": "25 August 2023"
+      }
+    ]
+  }
+  

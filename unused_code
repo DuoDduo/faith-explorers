@@ -1,0 +1,200 @@
+<!-- <div style="display: flex; margin:auto; justify-content:center; align-items: center;">
+            <button onclick="showBecomeAuthorForm()" class="flex" id="becomeAuthorButton">Become an Author</button>
+         </div> -->
+
+          <!-- Author Form -->
+          <!-- <div id="authorForm">
+              <form onsubmit="submitAuthorRequest(event)">
+                  <label for="authorName">Name:</label>
+                  <input type="text" id="authorName" name="authorName" required>
+      
+                  <label for="authorEmail">Email:</label>
+                  <input type="email" id="authorEmail" name="authorEmail" required>
+      
+                  <label for="authorPassword">Password:</label>
+                  <input type="password" id="authorPassword" name="authorPassword" required>
+      
+                  <button type="submit">Send Request</button>
+              </form>
+          </div> -->
+          
+                <!-- Add this HTML structure to your document, possibly in a hidden div -->
+        <!-- <div id="customDialog" class="custom-dialog">
+            <p id="dialogMessage"></p>
+            <button id="createPostButton" onclick="enableCRUD()">Create a Post Now</button>
+            <button id="createPostLaterButton">Create a Post Later</button>
+        </div> -->
+        <!-- Add this form within the modalContent div -->
+        <!-- <div id="modalContent" class="modal-content" style="display: none;">
+            <form id="addPostForm">
+                <label for="postTitle">Title:</label>
+                <input type="text" id="postTitle" name="postTitle" required>
+
+                <label for="postContent">Content:</label>
+                <textarea id="postContent" name="postContent" rows="4" required></textarea>
+
+                <button type="button" onclick="addPost()">Add Post</button>
+            </form>
+            <span class="close" onclick="closeModal()" id="'closeAddPostButton"><i class="fas fa-times"></i></span>
+        </div> -->
+
+
+          <!-- <div class="showmorepost flex">
+            <button onclick="showMorePosts()">Show More Posts<i class="fa-solid fa-arrow-right"></i></button>
+          </div> -->
+
+          /* Form styling */
+          #authorForm {
+              display: none;
+              max-width: 400px;
+              margin: 20px auto;
+          }
+  
+          #authorForm input {
+              width: 100%;
+              padding: 8px;
+              margin-bottom: 10px;
+              box-sizing: border-box;
+          }
+  
+          #authorForm button {
+              background-color: #53179a;
+              color: white;
+              padding: 10px;
+              border: none;
+              cursor: pointer;
+              border-radius: 4px;
+          }
+  
+          #authorForm button:hover {
+              background-color: rgb(233, 222, 248);
+                  color: #53179a;
+          }
+          #becomeAuthorButton {
+          background-color: #53179a;
+          color: white;
+          padding: 10px 20px; /* Adjust padding for better appearance */
+          border: none;
+          cursor: pointer;
+          border-radius: 4px;
+          transition: background-color 0.3s; /* Add a smooth transition effect */
+          }
+  
+          #becomeAuthorButton:hover {
+              background-color: rgb(233, 222, 248);
+                          color: #53179a;
+          }
+                  
+          .custom-dialog {
+              display: none;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              background-color: white;
+              border: 1px solid #ccc;
+              padding: 20px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              z-index: 1000;
+          }
+  
+          .custom-dialog p {
+              margin-bottom: 20px;
+          }
+  
+          .custom-dialog button {
+              background-color: #007BFF;
+              color: white;
+              padding: 10px 20px;
+              border: none;
+              cursor: pointer;
+              border-radius: 4px;
+              margin-right: 10px;
+              transition: background-color 0.3s;
+          }
+  
+          .custom-dialog button:hover {
+              background-color: #0056b3;
+          }
+          
+// // Function to show the Become an Author form
+// function showBecomeAuthorForm() {
+//   const authorForm = document.getElementById('authorForm');
+//   authorForm.style.display = 'block';
+// }
+
+// // Updated submitAuthorRequest function
+// function submitAuthorRequest(event) {
+//   event.preventDefault();
+
+//   const name = document.getElementById('authorName').value;
+//   const email = document.getElementById('authorEmail').value;
+//   const password = document.getElementById('authorPassword').value;
+
+//   if (!name || !email || !password) {
+//       alert('Please fill in all fields.');
+//       return;
+//   }
+
+//   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//   if (!emailRegex.test(email)) {
+//       alert('Please enter a valid email address.');
+//       return;
+//   }
+
+//   if (password.length < 6) {
+//       alert('Password must be at least 6 characters long.');
+//       return;
+//   }
+
+//   alert('Author request sent successfully. Status: Pending');
+
+// // Simulate approval after 5 seconds
+// setTimeout(() => {
+//   alert('Author request approved!');
+  
+//   // Prompt for username and password after approval
+//   const username = prompt('Enter your username:');
+//   const authPassword = prompt('Enter your password:');
+
+//   // Simulate authentication (store in local storage for simplicity)
+//   const storedUser = JSON.parse(localStorage.getItem('blogUser'));
+
+//   // Check if entered credentials match stored credentials
+//   if (storedUser && username === storedUser.username && authPassword === storedUser.password) {
+//       // Clear the form fields
+//       document.getElementById('authorName').value = '';
+//       document.getElementById('authorEmail').value = '';
+//       document.getElementById('authorPassword').value = '';
+
+//       // Hide the form
+//       const authorForm = document.getElementById('authorForm');
+//       authorForm.style.display = 'none';
+
+//       // Show custom dialog
+//       showCustomDialog(`Hello ${username}! Would you like to create a post now?`);
+//   } else {
+//       alert('Invalid credentials. You cannot perform CRUD operations.');
+//   }
+// }, 5000);
+// }
+
+// // Function to show custom dialog
+// function showCustomDialog(message, callback) {
+//   const customDialog = document.getElementById('customDialog');
+//   const dialogMessage = document.getElementById('dialogMessage');
+//   const createPostLaterButton = document.getElementById('createPostLaterButton');
+
+//   dialogMessage.textContent = message;
+
+//   // Show the dialog
+//   customDialog.style.display = 'block';
+
+//   // Handle button clicks
+//   createPostLaterButton.addEventListener('click', () => {
+//       // Close the dialog
+//       customDialog.style.display = 'none';
+//       alert('You can create a post later.');
+//   });
+
+// }  

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -30,6 +30,74 @@
                 align-items: center;
                 /* footer styling */
             }
+          
+              .modal {
+                visibility: hidden;
+                opacity: 0;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                backdrop-filter: blur(8px); /* Adjust the blur as needed */
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: visibility 0s, opacity 0.5s;
+                z-index: 999999999;
+                }
+
+                .modal-content {
+                background:rgb(233, 222, 248);
+                padding: 20px;
+                border-radius: 5px;
+                max-width: 90%; /* Adjust the maximum width as needed */
+                width: 100%;
+                font-size: 13px;
+                /* overflow: scroll; */
+                }
+
+                .close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                cursor: pointer;
+                font-size: 1.5rem;
+                color: #333; /* Adjust the color as needed */
+                }
+
+                /* Media Query for smaller screens */
+                @media (max-width:768px) {
+                .modal-content {
+                    max-width: 100%;
+                    font-size: 13px;
+                    height: 100vh;
+                    overflow-y: auto;
+                }
+                }
+                #paginationControls {
+                margin-top: 20px;
+                text-align: center;
+            }
+
+            #paginationControls button {
+                background-color: #53179a; /* Green background color */
+                border: 1px solid #53179a; /* Green border */
+                color: white; /* White text color */
+                padding: 8px 16px; /* Padding */
+                margin: 0 4px; /* Margin between buttons */
+                cursor: pointer; /* Cursor on hover */
+                border-radius: 4px; /* Rounded corners */
+            }
+
+            #paginationControls button:hover {
+                background-color: rgb(233, 222, 248);
+                color: #53179a;
+            }
+            
+             
+ 
            
             
 </style>
@@ -108,171 +176,20 @@
             <h2 class="textcolor">Recommended Articles</h2>
             <p>Curated just for you</p>
         </div>
-        <section class="editorcards container flex" >
-            <div class="edcard" data-aos="fade-up">
-                <a href="/">
-                    <img src="./sopimages/HOE MAY-51.jpg" alt="">
-                    <div class="edcarddetl">
-                        <div class="tegtime flex">
-                            <h5>#Relationship</h5>
-                            <h5 class="flex">
-                                <i class="fa-regular fa-clock"></i>
-                                <span>5</span>mins read
-                            </h5>
-                        </div>
-                        <a href="/">
-                            <h2>7 keys to building a Christ Centered Relationships</h2>
-                        </a>
-                        <div class="postby flex">
-                            <div class="flex authorbx">
-                                <img src="./sopimages/Mummy FLo.jpg" alt="">
-                                <div class="authorname">
-                                    <h4>Pastor Flo</h4>
-                                    <span>23 August 2023</span>
-                                </div>
-                            </div>
-                            <a class="readmore"><span>Read more</span></a>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            <div class="edcard" data-aos="fade-up">
-                <a href="/">
-                    <img src="./sopimages/HOE MAY-76.jpg" alt="">
-                    <div class="edcarddetl">
-                        <div class="tegtime flex">
-                            <h5>#Purpose</h5>
-                            <h5 class="flex">
-                                <i class="fa-regular fa-clock"></i>
-                                <span>5</span>mins read
-                            </h5>
-                        </div>
-                        <a href="/">
-                            <h2>Finding Purpose and Fulfilment in your Career: A Christian Perspective</h2>
-                        </a>
-                        <div class="postby flex">
-                            <div class="flex authorbx">
-                                <img src="./sopimages/Mummy FLo.jpg" alt="">
-                                <div class="authorname">
-                                    <h4>Pastor Flo</h4>
-                                    <span>23 August 2023</span>
-                                </div>
-                            </div>
-                            <a href="/" class="readmore"><span>Read more</span></a>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="edcard" data-aos="fade-up">
-                <a href="/">
-                    <img src="./sopimages/HOE MAY-49.jpg" alt="">
-                    <div class="edcarddetl">
-                        <div class="tegtime flex">
-                            <h5>#Lifestyle</h5>
-                            <h5 class="flex">
-                                <i class="fa-regular fa-clock"></i>
-                                <span>5</span>mins read
-                            </h5>
-                        </div>
-                        <a href="/">
-                            <h2>Embracing a Lifestyle of Humility</h2>
-                        </a>
-                        <div class="postby flex">
-                            <div class="flex authorbx">
-                                <img src="./sopimages/Mummy FLo.jpg" alt="">
-                                <div class="authorname">
-                                    <h4>Pastor Flo</h4>
-                                    <span>23 August 2023</span>
-                                </div>
-                            </div>
-                            <a href="/" class="readmore"><span>Read more</span></a>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="edcard" data-aos="fade-up">
-                <a href="/">
-                    <img src="./sopimages/broisrael (3).jpg" alt="">
-                    <div class="edcarddetl">
-                        <div class="tegtime flex">
-                            <h5>#Relationship</h5>
-                            <h5 class="flex">
-                                <i class="fa-regular fa-clock"></i>
-                                <span>5</span>mins read
-                            </h5>
-                        </div>
-                        <a href="/">
-                            <h2>The Power of Forgiveness in Relationships</h2>
-                        </a>
-                        <div class="postby flex">
-                            <div class="flex authorbx">
-                                <img src="./sopimages/Mummy FLo.jpg" alt="">
-                                <div class="authorname">
-                                    <h4>Pastor Flo</h4>
-                                    <span>23 August 2023</span>
-                                </div>
-                            </div>
-                            <a href="/" class="readmore"><span>Read more</span></a>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="edcard" data-aos="fade-up">
-                <a href="/">
-                    <img src="./sopimages/HOE MAY-26.jpg" alt="">
-                    <div class="edcarddetl">
-                        <div class="tegtime flex">
-                            <h5>#Friendship</h5>
-                            <h5 class="flex">
-                                <i class="fa-regular fa-clock"></i>
-                                <span>5</span>mins read
-                            </h5>
-                        </div>
-                        <a href="/">
-                            <h2>The Beauty of Chistian Friendship: Cultivating Meaningful Connections</h2>
-                        </a>
-                        <div class="postby flex">
-                            <div class="flex authorbx">
-                                <img src="./sopimages/Mummy FLo.jpg" alt="">
-                                <div class="authorname">
-                                    <h4>Pastor Flo</h4>
-                                    <span>23 August 2023</span>
-                                </div>
-                            </div>
-                            <a href="/" class="readmore"><span>Read more</span></a>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="edcard" data-aos="fade-up">
-                <a href="/">
-                    <img src="./sopimages/HOE MAY-19.jpg" alt="">
-                    <div class="edcarddetl">
-                        <div class="tegtime flex">
-                            <h5>#Trust</h5>
-                            <h5 class="flex">
-                                <i class="fa-regular fa-clock"></i>
-                                <span>5</span>mins read
-                            </h5>
-                        </div>
-                        <a href="/">
-                            <h2>Walking in Faith: Trusting God's Plan for your life</h2>
-                        </a>
-                        <div class="postby flex">
-                            <div class="flex authorbx">
-                                <img src="./sopimages/Mummy FLo.jpg" alt="">
-                                <div class="authorname">
-                                    <h4>Pastor Flo</h4>
-                                    <span>23 August 2023</span>
-                                </div>
-                            </div>
-                            <a href="/" class="readmore"><span>Read more</span></a>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </section>
+        <!-- Modal -->
+<div id="modal" class="modal">
+    <div id="modalContent" class="modal-content">
+      <!-- Modal content goes here -->
+      <!-- <span class="close" onclick="closeModal()"><i class="fas fa-times"></i></span> -->
+    </div>
+  </div>
+        <section class="editorcards container flex" id="blogSection">
+            <!-- Blog posts will be dynamically added here -->
+          </section>
+          <div id="paginationControls" class="showmorepost flex"></div>
+
+         
+        
         <section class="recentpostsec container flex">
             <div class="recentposts" data-aos="fade-up">
                 <div class="bigtitle">
@@ -529,7 +446,7 @@
                 </div>
             </div>
         </section>
-
+       
        
          <!-- faq section -->
     <div class="faq-container" data-aos="zoom-in">
@@ -597,78 +514,7 @@
       <!-- faq section  -->
     </main>
 
-    <!-- <footer class="contain footer" data-aos="zoom-in-up">
-        <section class="footersec">
-            <div class="logofooter">
-                <div class="logof">
-                    <a href="/" class="flex">
-                        <img src="./sopimages/Faith2.png" alt="">
-                        <h1>aith Explorers</h1>
-                    </a>
-                </div>
-                <p>We believe that the Christian faith is not just a set of beliefs, but a way of life that permeates every aspect of our existence .</p>
-               <div>
-                <h4>Address</h4>
-                <p>4, Onifade Close, Surulere, Olomore, Abeokuta, Ogun State</p>
-               </div>
-        
-            </div>
-            <div class="categoriesfooter">
-                
-                
-                    <div class="catefbx">
-                        
-                        <ul>
-                            <h3>Quick Links</h3>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/">About Us</a></li>
-                            <li><a href="/">Category</a></li>
-                            <li><a href="/">Articles</a></li>
-                            <li><a href="/">Contact Us</a></li>
-                           
-                        </ul>
-                    </div>
-                
-                
-            </div>
-            <div class="newsletterfooter" id="subform">
-                <h3>Newsletter</h3>
-                <p>To stay connected with Faith Explorers, we invite you to join our newsletter community. By subscribing, you'll receive regular updates, exclusive content, and opportunities to participate in special events and discussions.
-                </p>
-                <form action="" class="flex">
-                    <div class="flex">
-                        <i class="fa-regular fa-user"></i>
-                        <input type="name" placeholder="Your name">
-                    </div>
-                    <div class="flex">
-                        <i class="fa-regular fa-envelope"></i>
-                        <input type="email" placeholder="Email address">
-                    </div>
-                    <button type="submit" class="flex">Subscribe </button>
-                </form>
-            </div>
-        </section>
-        <div class="themeauthor container flex">
-            <div class="createdby">
-                <h4>&copy; 2023 Faith Explorers</a></h4>
-            </div>
-            <div class="social flex">
-                <div class="socialicon">
-                    <i class="fa-brands fa-twitter"></i>
-                    <h4>Twitter</h4>
-                </div>
-                <div class="socialicon">
-                    <i class="fa-brands fa-facebook"></i>
-                    <h4>Facebook</h4>
-                </div>
-                <div class="socialicon">
-                    <i class="fa-brands fa-square-instagram"></i>
-                    <h4>Instagram</h4>
-                </div>
-            </div>
-        </div>
-    </footer> -->
-
+  
 <!-- footer section starts  -->
 
 <section class="footer">
@@ -725,7 +571,14 @@
     
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+      <!-- Add Firebase scripts -->
+   
+
+     
     <script src="./js/app.js"></script>
+    <script src="./js/blog.js"></script>
+  
+
     
     <script>
     
@@ -735,7 +588,68 @@
         });
     
     </script>
+    <!-- <script type="module">
+        //    import firebase from "./firebase/app";
+        // //     import "firebase/auth";
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+           
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          
+        
+            const firebaseConfig = {
+              apiKey: "AIzaSyBdiWG8bzW5MVSXkdtWmokpPRNoyYNmHZ0",
+              authDomain: "faithexplorers.firebaseapp.com",
+              projectId: "faithexplorers",
+              storageBucket: "faithexplorers.appspot.com",
+              messagingSenderId: "955545918325",
+              appId: "1:955545918325:web:a078ed394c648485ec113c",
+              measurementId: "G-GXR0P3WMX0"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+        
+    
+            // Function to submit the Become an Author request
+            async function submitAuthorRequest(event) {
+            event.preventDefault();
+    
+            const authorName = document.getElementById('authorName').value;
+            const authorEmail = document.getElementById('authorEmail').value;
+    
+            // Perform any necessary validation on the input data
+                
+    
+            try {
+                // Sign up the user with Firebase Authentication
+                const userCredential = await firebase.auth().createUserWithEmailAndName(authorEmail, authorName);
+    
+                // Save the author request to Firestore
+                await firebase.firestore().collection('authorRequests').doc(userCredential.user.uid).set({
+                name: authorName,
+                email: authorEmail,
+                status: 'pending' // You can update this status when approved
+                });
+    
+                alert('Author request sent successfully. Await approval.');
+                // You can also reset the form or hide it after submission
+            } catch (error) {
+                console.error('Error submitting author request:', error);
+                alert('Error sending author request. Please try again.');
+            }
+            }
+    </script> -->
 
 </body>
+
+        <!-- <script src="https://www.gstatic.com/firebasejs/9.3.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.3.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.3.0/firebase-firestore.js"></script> -->
 
 </html>
