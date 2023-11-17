@@ -958,8 +958,8 @@ summary:hover .expand-icon {
   .footer .box-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(20rem, 1fr))[auto-fit];
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  -ms-grid-columns: (minmax(16rem, 1fr))[auto-fit];
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 0.5rem;
   
   }
