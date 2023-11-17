@@ -19,7 +19,18 @@
         height: 400px;
         display: none;
     }
-
+    .back-Button {
+        background-color: #53179a;
+        padding: 10px;
+        cursor: pointer;
+        color: white;
+        outline: none;
+        border-radius: 15px;
+        margin-bottom:20px;
+        border: none;
+        width: 100%;
+        
+      }
     .navlist ul {
         margin-top: 30px;
         width: 250px;
@@ -129,18 +140,17 @@
     }
     
 }
-
-/* @media screen and (max-width: 430px) {
-    .social {
-        flex-direction: column;
-    }
-    .createdby {
-        text-align: center;
-    }
-    .logofooter p{
+ @media screen and (max-width: 430px) {
+    .back-Button {
+        background-color: #53179a;
+        padding: 10px;
+        cursor: pointer;
+        color: white;
+        outline: none;
+        border-radius: 15px;
+        margin-bottom:20px;
+        border: none;
         width: 100%;
-    }
-    .bio h1{
-        font-size: 30px;
-    }
-} */
+        
+      }
+}

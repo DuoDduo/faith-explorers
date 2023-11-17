@@ -205,6 +205,99 @@ async function showFullContent(postId) {
   };
 }
 
+
+// Function to render recent posts
+function renderRecentPosts(recentPosts) {
+  const recentPostsContainer = document.querySelector('.posts');
+  recentPostsContainer.innerHTML = '';
+
+  recentPosts.forEach(post => {
+    const postElement = document.createElement('div');
+    postElement.className = 'post flex';
+    postElement.dataset.aos = 'fade-up';
+
+    postElement.innerHTML = `
+      <a href="/">
+        <img src="${post.imageSrc}" alt="">
+      </a>
+      <div class="postdetails">
+        <div class="postlabel">
+          <a href="#">${post.category}</a>
+        </div>
+        <a href="#">
+          <h2>${post.title}</h2>
+        </a>
+        <p>${post.body}</p>
+        <div class="posttimeteg flex">
+          <div class="flex">
+            ${post.tags.map(tag => `<h5><span>${tag}</span></h5>`).join('')}
+          </div>
+          <div class="tegtime">
+            <h5 class="flex">
+              <i class="fa-regular fa-clock"></i>
+              <span>${post.readTime}</span>mins read
+            </h5>
+          </div>
+        </div>
+      </div>
+    `;
+
+    recentPostsContainer.appendChild(postElement);
+  });
+}
+
+// Function to render popular posts
+function renderPopularPosts(popularPosts) {
+  const popularPostsContainer = document.querySelector('.populposts');
+  popularPostsContainer.innerHTML = '';
+
+  popularPosts.forEach(post => {
+    const postElement = document.createElement('div');
+    postElement.className = 'popupost flex';
+    postElement.dataset.aos = 'fade-down';
+
+    postElement.innerHTML = `
+      <img src="${post.imageSrc}" alt="">
+      <div class="popupostde">
+        <a href="#">
+          <h4>${post.title}</h4>
+        </a>
+        <div class="poputime flex">
+          <h5><span>${post.readTime}</span>mins read</h5>
+          <p>▪</p>
+          <h5>${post.date}</h5>
+        </div>
+      </div>
+    `;
+
+    popularPostsContainer.appendChild(postElement);
+  });
+}
+
+// Function to render comments
+function renderComments(comments) {
+  const commentsContainer = document.querySelector('.postcomments');
+  commentsContainer.innerHTML = '';
+
+  comments.forEach(comment => {
+    const commentElement = document.createElement('div');
+    commentElement.className = 'comment';
+
+    commentElement.innerHTML = `
+      <p><span>"${comment.comment}"</span></p>
+      <div class="authorcomment flex">
+        <img src="${comment.author.avatar}" alt="">
+        <div class="authortimename">
+          <h5>${comment.author.name}</h5>
+          <span>${comment.date}</span>
+        </div>
+      </div>
+    `;
+
+    commentsContainer.appendChild(commentElement);
+  });
+}
+
 // Initial rendering
 async function initialize() {
   blogPosts = await fetchBlogData(); // Fetch blog posts
