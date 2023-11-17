@@ -29,7 +29,84 @@
                 justify-content: center;
                 align-items: center;
             }
-     
+            .contact-container {
+            width: 80%;
+            max-width: 500px;
+            /* border: 1px solid #53179a; */
+            background-color: rgb(233, 222, 248);
+            border-radius: 16px;
+            font-size: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: rgb(17 17 17 / 15%) 0px 0.5rem 1rem;
+        }
+        .contact-container:hover{
+          border: 0.2rem solid #53179A;
+        }
+
+        .h2 {
+            text-align: center;
+            color: #53179a;
+            font-size: 18px;
+            font-weight: 500
+            /* color: rgb(233, 222, 248); */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            /* font-weight: bold; */
+            margin-bottom: 8px;
+            /* color: rgb(233, 222, 248); */
+        }
+
+        input,
+        textarea {
+            padding: 15px;
+            margin-bottom: 16px;
+            border: 1px solid #53179a;
+            border-radius: 15px;
+            box-sizing: border-box;
+            width: 100%;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background-color: rgb(233, 222, 248);
+        }
+
+        input:focus,
+        textarea:focus {
+            /* border-color: rgb(233, 222, 248); */
+            outline: none;
+        }
+
+        button {
+            background-color: #53179a;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 40px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+          background-color: rgb(233, 222, 248);
+          border: 1px solid #53179a;
+          color: #53179A;
+        }
+
+        .error {
+            color: #d9534f;
+            font-size: 14px;
+            margin-top: -8px;
+            margin-bottom: 16px;
+        }
+      
 
         </style>
 </head>
@@ -57,32 +134,9 @@
                     <li><a href="./contact.html" class="liactive">Contact</a></li>
                 </ul>
             </div>
-            <div class="searchdarksub flex">
-                <div class="searchbar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <div class="searchclick">
-                        <form action="#">
-                            <input class="form-control" type="text" placeholder="Search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </form>
-                        <div class="tagssec">
-                            <h3>Popular tags:</h3>
-                            <div class="tegs flex">
-                                <a href="/">#Marriage<span>,</span></a>
-                                <a href="/">#Spirituality<span>,</span></a>
-                                <a href="/">#Stewardship<span>,</span></a>
-                                <a href="/">#Singleness<span>,</span></a>
-                                <a href="/">#Worship</a>
-                            </div>
-                        </div>
-                    </div>
+           
 
-                </div>
-                <!-- <div class="toggle-switch">
-                    <input type="checkbox" class="l toggle-checkbox" id="dark-mode-toggle">
-                    <label class="toggle-label" for="dark-mode-toggle"></label>
-                </div> -->
-                <!-- <button class="subbtn"><a href="#subform">Subcribe</a></button> -->
+              
                 <input type="checkbox" id="checkbox">
                 <label for="checkbox" class="toggle">
                     <div class="bars" id="bar1"></div>
@@ -119,7 +173,39 @@
             </div>
     
         </section>
-      
+        <section class="about container" id="about" style="margin-top: 6%;">
+
+          <div class="contact-container content" data-aos="fade-left" data-aos-delay="300">
+            <h2 class="h2">Contact Us</h2>
+            <form id="contactForm" method="get" onsubmit="return validateForm()">
+                <label for="userName"> Name:</label>
+                <input type="text" id="userName" name="userName" required>
+                <div class="error" id="nameError"></div>
+        
+                <label for="userEmail"> Email:</label>
+                <input type="email" id="userEmail" name="userEmail" required>
+                <div class="error" id="emailError"></div>
+        
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <div class="error" id="messageError"></div>
+        
+                <!-- <h3>Website Owner Information:</h3>
+                <p>Address: Owner's Address Goes Here</p>
+                <p>Email: owner@example.com</p>
+                <p>Contact: +1 123-456-7890</p> -->
+        
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+          <div class="video-container" data-aos="fade-right" data-aos-delay="300">
+              <img src="./sopimages/HOE MAY-76.jpg" class="image">
+          </div>
+  
+          
+  
+      </section>
+       
     
         </section>
        
@@ -245,6 +331,46 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="./js/app.js"></script>
+    <script>
+      function validateForm() {
+          var name = document.getElementById('userName').value;
+          var email = document.getElementById('userEmail').value;
+          var message = document.getElementById('message').value;
+  
+          var nameError = document.getElementById('nameError');
+          var emailError = document.getElementById('emailError');
+          var messageError = document.getElementById('messageError');
+  
+          nameError.innerHTML = "";
+          emailError.innerHTML = "";
+          messageError.innerHTML = "";
+  
+          var isValid = true;
+  
+          if (name.trim() === "") {
+              nameError.innerHTML = "Name is required";
+              isValid = false;
+          }
+  
+          var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+              emailError.innerHTML = "Invalid email address";
+              isValid = false;
+          }
+  
+          if (message.trim() === "") {
+              messageError.innerHTML = "Message is required";
+              isValid = false;
+          }
+  
+          if (isValid) {
+              // If form is valid, display a success message
+              alert(' Message sent succesfully!');
+          }
+  
+          return isValid;
+      }
+  </script>
     
     <script>
     
