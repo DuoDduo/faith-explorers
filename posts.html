@@ -95,6 +95,15 @@
                 background-color: rgb(233, 222, 248);
                 color: #53179a;
             }
+            /* CSS for hiding the post body content */
+.post-body.hidden {
+  display: none;
+}
+
+/* CSS for showing the post body content */
+.post-body:not(.hidden) {
+  display: block;
+}
 
             /* Add this to your styles.css or in a style tag in your HTML */
 .content-modal {
