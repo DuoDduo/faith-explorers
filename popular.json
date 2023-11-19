@@ -4,7 +4,8 @@
       "imageSrc": "./sopimages/HOE MAY-82.jpg",
       "category": "Relationship and Marriage",
       "title": "Finding Hope and Healing After Divorce: A Christian Approach",
-      "body": "Take small but impactful steps towards environmental stewardship and sustainability within the comfort of your own home, contributing to a greener planet",
+      "content": "Take small but impactful steps towards environmental stewardship and sustainability within the comfort of your own home, contributing to a greener planet",
+      "body": "In this article, we explore practical steps to find hope and healing after divorce from a Christian perspective. Discover how to navigate this challenging season with faith and resilience.",
       "tags": ["#Travel", "#Lifestyle"],
       "readTime": 5
     },
@@ -12,7 +13,8 @@
       "imageSrc": "./sopimages/HOE MAY-58.jpg",
       "category": "Relationship and Marriage",
       "title": "Understanding and Embracing God's Design for Sexuality",
-      "body": "A healthy Lifestyle is the way of life adopted by an individual, a group, or a society. The word “lifestyle” was first coined by Alfred Adler who tried to identify the several factors that govern the quality of life led by different individuals.",
+      "content": "A healthy Lifestyle is the way of life adopted by an individual, a group, or a society. The word “lifestyle” was first coined by Alfred Adler who tried to identify the several factors that govern the quality of life led by different individuals.",
+      "body": "Delve into the biblical perspective on sexuality and learn how to understand and embrace God's design for this aspect of life. Explore the principles that guide a Christian approach to this topic.",
       "tags": ["#Travel", "#Lifestyle"],
       "readTime": 5
     },
@@ -20,7 +22,8 @@
       "imageSrc": "./sopimages/broisrael (3).jpg",
       "category": "Christian Ethics",
       "title": "Living with Integrity: Honoring God in Your Words and Actions",
-      "body": "The Taj Mahal is located on the right bank of the Yamuna River in a vast Mughal garden that encompasses nearly 17 hectares, in the Agra District in Uttar Pradesh.",
+      "content": "The Taj Mahal is located on the right bank of the Yamuna River in a vast Mughal garden that encompasses nearly 17 hectares, in the Agra District in Uttar Pradesh.",
+      "body": "Explore the importance of living with integrity in accordance with Christian ethics. Discover how honoring God in your words and actions can positively impact your life and relationships.",
       "tags": ["#Travel", "#Lifestyle"],
       "readTime": 5
     },
@@ -28,7 +31,8 @@
       "imageSrc": "./sopimages/HOE MAY-52.jpg",
       "category": "Emotional Health",
       "title": "Finding Balance in Self-Care: Nurturing Your Mind, Body, and Spirit",
-      "body": "It’s always fun to learn new things about the universe because it’s so mysterious yet we keep discovering more. These fascinating universe facts will make you realize how we’re all just a tiny speck in the grand scheme of things.",
+      "content": "It’s always fun to learn new things about the universe because it’s so mysterious yet we keep discovering more. These fascinating universe facts will make you realize how we’re all just a tiny speck in the grand scheme of things.",
+      "body": "Discover practical tips for finding balance in self-care and nurturing your mind, body, and spirit. Explore the importance of emotional health in maintaining overall well-being.",
       "tags": ["#Travel", "#Lifestyle"],
       "readTime": 5
     }
@@ -37,35 +41,40 @@
     {
       "imageSrc": "./img/work-freelancer.png",
       "title": "Embracing Diversity: Celebrating and Valuing Every Person's Worth",
-      "body": "This is the body content for the popular post about embracing diversity.",
+      "content": "This is the body content for the popular post about embracing diversity.",
+      "body": "Learn about the significance of embracing diversity and celebrating the inherent worth of every individual. Explore practical ways to foster inclusivity and understanding in various aspects of life.",
       "readTime": 5,
       "date": "25 April 2023"
     },
     {
       "imageSrc": "./img/work-freelancer2.png",
       "title": "Practicing Gratitude: Cultivating a Thankful Heart in All Circumstances",
-      "body": "This is the body content for the popular post about practicing gratitude.",
+      "content": "This is the body content for the popular post about practicing gratitude.",
+      "body": "Discover the transformative power of practicing gratitude and cultivating a thankful heart in all circumstances. Explore how gratitude positively impacts mental well-being and overall life satisfaction.",
       "readTime": 5,
       "date": "25 April 2023"
     },
     {
       "imageSrc": "./img/work-freelancer3.png",
       "title": "Stewardship of Time: Balancing Priorities in a Busy World",
-      "body": "This is the body content for the popular post about stewardship of time.",
+      "content": "This is the body content for the popular post about stewardship of time.",
+      "body": "Explore the concept of stewardship of time and learn practical strategies for balancing priorities in a busy world. Discover how effective time management contributes to a fulfilling and purposeful life.",
       "readTime": 5,
       "date": "25 April 2023"
     },
     {
       "imageSrc": "./img/work-freelancer4.png",
       "title": "Practicing Gratitude: Cultivating a Thankful Heart in All Circumstances",
-      "body": "This is the body content for the popular post about practicing gratitude.",
+      "content": "This is the body content for the popular post about practicing gratitude.",
+      "body": "Discover the transformative power of practicing gratitude and cultivating a thankful heart in all circumstances. Explore how gratitude positively impacts mental well-being and overall life satisfaction.",
       "readTime": 5,
       "date": "25 April 2023"
     },
     {
       "imageSrc": "./img/work-freelancer5.png",
       "title": "Financial Stewardship: Honoring God with Your Finances",
-      "body": "This is the body content for the popular post about financial stewardship.",
+      "content": "This is the body content for the popular post about financial stewardship.",
+      "body": "Learn about the importance of financial stewardship and how honoring God with your finances can lead to greater financial well-being. Explore practical tips for managing money with integrity and wisdom.",
       "readTime": 5,
       "date": "25 April 2023"
     }
