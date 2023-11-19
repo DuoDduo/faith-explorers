@@ -111,7 +111,7 @@ async function renderMoreBlogPosts() {
 
     postElement.innerHTML = `
       <div>
-        <a href="#">
+        <a>
           <img src="${post.imageSrc}" alt="">
           <div class="edcarddetl">
             <div class="tegtime flex">
