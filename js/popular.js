@@ -51,20 +51,34 @@ function renderRecentPosts(recentPosts) {
       const postBody = postElement.querySelector('.post-body');
       const closeButton = postElement.querySelector('.close-button');
   
-      // Event listener to show the modal when the title is clicked
-      postTitle.addEventListener('click', () => {
+      // Function to show the modal when the title is clicked
+      const showPostBody = () => {
         postBody.classList.remove('hidden');
+      };
+  
+      // Function to hide the modal
+      const hidePostBody = () => {
+        postBody.classList.add('hidden');
+      };
+  
+      // Event listener to show/hide the modal when the title is clicked
+      postTitle.addEventListener('click', () => {
+        if (postBody.classList.contains('hidden')) {
+          showPostBody();
+        } else {
+          hidePostBody();
+        }
       });
   
       // Event listener to hide the modal when the close button is clicked
       closeButton.addEventListener('click', () => {
-        postBody.classList.add('hidden');
+        hidePostBody();
       });
   
       postsContainer.appendChild(postElement);
     });
   }
-
+  
  // Function to render popular posts
 function renderPopularPosts(popularPosts) {
     const popularPostsSection = document.getElementById('popularPostsSection');
@@ -74,15 +88,15 @@ function renderPopularPosts(popularPosts) {
       const postElement = document.createElement('div');
       postElement.className = 'popupost flex';
       postElement.innerHTML = `
-        <img src="${post.imageSrc}" alt="">
+       <!-- <img src="${post.imageSrc}" alt=""> -->
         <div class="popupostde">
           <a class="post-title">
             <h4>${post.title}</h4>
-            <div class="post-body hidden">
-              <p>${post.body}</p>
-              <button class="close-button">Close</button>
-            </div>
           </a>
+          <div class="post-body hidden">
+            <p>${post.body}</p>
+            <button class="close-button">Close</button>
+          </div>
           <div class="poputime flex">
             <h5><span>${post.readTime}</span>mins read</h5>
             <p>▪</p>
@@ -95,14 +109,28 @@ function renderPopularPosts(popularPosts) {
       const postBody = postElement.querySelector('.post-body');
       const closeButton = postElement.querySelector('.close-button');
   
-      // Event listener to show the modal when the title is clicked
-      postTitle.addEventListener('click', () => {
+      // Function to show the modal when the title is clicked
+      const showPostBody = () => {
         postBody.classList.remove('hidden');
+      };
+  
+      // Function to hide the modal
+      const hidePostBody = () => {
+        postBody.classList.add('hidden');
+      };
+  
+      // Event listener to show/hide the modal when the title is clicked
+      postTitle.addEventListener('click', () => {
+        if (postBody.classList.contains('hidden')) {
+          showPostBody();
+        } else {
+          hidePostBody();
+        }
       });
   
       // Event listener to hide the modal when the close button is clicked
       closeButton.addEventListener('click', () => {
-        postBody.classList.add('hidden');
+        hidePostBody();
       });
   
       popularPostsContainer.appendChild(postElement);
