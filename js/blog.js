@@ -297,6 +297,64 @@ function renderComments(comments) {
     commentsContainer.appendChild(commentElement);
   });
 }
+// Declare comments as a global variable
+let comments = [];
+
+// ... (Your existing code)
+
+// Function to add a new comment
+function addComment() {
+  // Get form values
+  const commentAuthor = document.getElementById('commentAuthor').value;
+  const commentContent = document.getElementById('commentContent').value;
+  const commentImageInput = document.getElementById('commentImage');
+
+  // Check if an image is provided
+  const commentImage = commentImageInput.files.length > 0 ? URL.createObjectURL(commentImageInput.files[0]) : null;
+
+  // Create a new comment object
+  const newCommentObj = {
+    comment: commentContent,
+    author: {
+      name: commentAuthor,
+      // You can add an avatar property if you collect avatars
+    },
+    image: commentImage,
+    date: new Date().toLocaleDateString(),
+  };
+
+  // Add the new comment to the comments array
+  comments.push(newCommentObj);
+
+  // Render the updated comments
+  renderComments(comments);
+
+  // Clear the form
+  document.getElementById('commentForm').reset();
+}
+
+function addComment() {
+  var nameInput = document.getElementById('name-input');
+  var commentInput = document.getElementById('comment-input');
+  var nameText = nameInput.value.trim();
+  var commentText = commentInput.value.trim();
+
+  if (nameText !== '' && commentText !== '') {
+      var commentsList = document.getElementById('comments-list');
+
+      // Create a new comment element
+      var commentElement = document.createElement('div');
+      commentElement.className = 'comment';
+      commentElement.innerHTML = `<strong>${nameText}</strong>: ${commentText}`;
+
+      // Append the new comment to the comments list
+      commentsList.appendChild(commentElement);
+
+      // Clear the name and comment inputs
+      nameInput.value = '';
+      commentInput.value = '';
+  }
+}
 
 // Initial rendering
 async function initialize() {
