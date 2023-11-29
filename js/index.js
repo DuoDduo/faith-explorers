@@ -83,7 +83,7 @@ async function showFullContent(postId) {
       <p>${post.body}</p>
       <div class="postby flex">
         <div class="flex authorbx">
-          <img src="./sopimages/Mummy FLo.jpg" alt="">
+        <img src="${post.authorImage}" alt="">
           <div class="authorname">
             <h4>${post.author}</h4>
             <span>${post.date}</span>
