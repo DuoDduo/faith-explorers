@@ -385,7 +385,7 @@ header nav {
   padding: 20px;
   min-width: 32%;
   max-width: 32%;
-  height: 600px;
+  height: 540px;
   color: #000;
 }
 
@@ -1144,8 +1144,11 @@ summary:hover .expand-icon {
 }
 
 .review .box-container .box .user img {
-  height: 3rem;
-  width: 3rem;
+  /* height: 3rem; */
+  /* width: 30%; */
+  width: 30%;
+  height: 20%;
+
   border-radius: 50%;
 }
 
