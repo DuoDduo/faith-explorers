@@ -6,11 +6,22 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
+from app.core.config import settings
 from app.core.database import get_db
 from app.core.rate_limit import limiter
+from app.emails import sender
 from app.main import app
 from app.models import Base
 from scripts.seed import Seeder
+
+
+@pytest.fixture(autouse=True)
+def outbox(monkeypatch) -> Iterator[list[sender.Email]]:
+    """Emails "sent" during the test."""
+    monkeypatch.setattr(settings, "email_backend", "memory")
+    sender.outbox.clear()
+    yield sender.outbox
+    sender.outbox.clear()
 
 
 @pytest.fixture(autouse=True)

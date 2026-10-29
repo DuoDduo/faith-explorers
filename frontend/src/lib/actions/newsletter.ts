@@ -29,3 +29,28 @@ export async function subscribeToNewsletter(
     };
   }
 }
+
+async function tokenAction(path: string, formData: FormData, fallback: string): Promise<FormState> {
+  const token = String(formData.get("token") ?? "");
+  try {
+    const { detail } = await apiPost<Message>(path, { token });
+    return { status: "success", message: detail };
+  } catch (error) {
+    return formStateFromError(error, fallback);
+  }
+}
+
+export async function confirmSubscription(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  return tokenAction(
+    "/newsletter/confirm",
+    formData,
+    "This confirmation link isn't valid. It may have already been used.",
+  );
+}
+
+export async function unsubscribe(_prev: FormState, formData: FormData): Promise<FormState> {
+  return tokenAction("/newsletter/unsubscribe", formData, "Couldn't unsubscribe you right now.");
+}

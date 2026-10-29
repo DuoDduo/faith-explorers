@@ -82,5 +82,6 @@ cd frontend && npm run lint && npm run typecheck && npm run format:check && npm 
 - [x] Likes and saved articles
 - [x] "Write for us" applications; author dashboard with a Markdown editor, preview and cover uploads
 - [x] Admin: author approvals, article review queue, Editor's picks, comment moderation, contact inbox, user roles
-- [ ] Email: contact-form notifications, newsletter double opt-in
+- [x] Email: password reset, contact-form forwarding, newsletter double opt-in, review notifications
+- [x] Rate limiting on sign-in, sign-up and public forms
 - [ ] Deployment

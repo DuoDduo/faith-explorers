@@ -1,8 +1,9 @@
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, BackgroundTasks, Query
 
 from app.api.deps import CurrentAdmin, DbSession
+from app.emails import sender, templates
 from app.models import (
     ApplicationStatus,
     AuthorApplication,
@@ -55,18 +56,40 @@ def applications(
     return admin_service.list_applications(db, status, page, page_size)
 
 
+def _notify_applicant(background: BackgroundTasks, application: AuthorApplication) -> None:
+    user = application.user
+    if user.email:
+        approved = application.status == ApplicationStatus.APPROVED
+        email = templates.application_reviewed(
+            user.email, user.name, approved, application.review_note
+        )
+        background.add_task(sender.send, email)
+
+
 @router.post("/applications/{application_id}/approve", response_model=AdminApplicationOut)
 def approve_application(
-    application_id: int, payload: ReviewIn, admin: CurrentAdmin, db: DbSession
+    application_id: int,
+    payload: ReviewIn,
+    admin: CurrentAdmin,
+    db: DbSession,
+    background: BackgroundTasks,
 ) -> AuthorApplication:
-    return admin_service.review_application(db, admin, application_id, True, payload.note)
+    application = admin_service.review_application(db, admin, application_id, True, payload.note)
+    _notify_applicant(background, application)
+    return application
 
 
 @router.post("/applications/{application_id}/reject", response_model=AdminApplicationOut)
 def reject_application(
-    application_id: int, payload: ReviewIn, admin: CurrentAdmin, db: DbSession
+    application_id: int,
+    payload: ReviewIn,
+    admin: CurrentAdmin,
+    db: DbSession,
+    background: BackgroundTasks,
 ) -> AuthorApplication:
-    return admin_service.review_application(db, admin, application_id, False, payload.note)
+    application = admin_service.review_application(db, admin, application_id, False, payload.note)
+    _notify_applicant(background, application)
+    return application
 
 
 # Posts
@@ -89,13 +112,33 @@ def post(post_id: int, _: CurrentAdmin, db: DbSession) -> Post:
 
 
 @router.post("/posts/{post_id}/publish", response_model=MyPostDetail)
-def publish(post_id: int, _: CurrentAdmin, db: DbSession) -> Post:
-    return admin_service.publish_post(db, post_id)
+def publish(post_id: int, admin: CurrentAdmin, db: DbSession, background: BackgroundTasks) -> Post:
+    post = admin_service.publish_post(db, post_id)
+    if post.author.email and post.author_id != admin.id:
+        background.add_task(
+            sender.send,
+            templates.post_published(post.author.email, post.author.name, post.title, post.slug),
+        )
+    return post
 
 
 @router.post("/posts/{post_id}/return", response_model=MyPostDetail)
-def return_to_author(post_id: int, payload: ReviewIn, _: CurrentAdmin, db: DbSession) -> Post:
-    return admin_service.return_post(db, post_id, payload.note)
+def return_to_author(
+    post_id: int,
+    payload: ReviewIn,
+    admin: CurrentAdmin,
+    db: DbSession,
+    background: BackgroundTasks,
+) -> Post:
+    post = admin_service.return_post(db, post_id, payload.note)
+    if post.author.email and post.author_id != admin.id:
+        background.add_task(
+            sender.send,
+            templates.post_returned(
+                post.author.email, post.author.name, post.title, post.id, post.review_note
+            ),
+        )
+    return post
 
 
 @router.post("/posts/{post_id}/unpublish", response_model=MyPostDetail)

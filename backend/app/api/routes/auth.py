@@ -1,11 +1,21 @@
-from fastapi import APIRouter, HTTPException, Response, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Response, status
 
 from app.api.deps import ClientIP, CurrentUser, DbSession, SessionToken
 from app.core import rate_limit
 from app.core.rate_limit import limiter
+from app.emails import sender
 from app.models import User
-from app.schemas import AuthOut, LoginIn, RegisterIn, UserOut
+from app.schemas import (
+    AuthOut,
+    LoginIn,
+    MessageOut,
+    PasswordResetConfirmIn,
+    PasswordResetRequestIn,
+    RegisterIn,
+    UserOut,
+)
 from app.services import auth as auth_service
+from app.services import password_reset
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -44,3 +54,28 @@ def logout(token: SessionToken, db: DbSession) -> Response:
 @router.get("/me", response_model=UserOut)
 def me(user: CurrentUser) -> User:
     return user
+
+
+@router.post("/password-reset", response_model=MessageOut, status_code=status.HTTP_202_ACCEPTED)
+def request_password_reset(
+    payload: PasswordResetRequestIn, db: DbSession, ip: ClientIP, background: BackgroundTasks
+) -> MessageOut:
+    limiter.consume(f"reset:ip:{ip}", rate_limit.PASSWORD_RESET_PER_IP)
+    limiter.consume(f"reset:email:{payload.email.lower()}", rate_limit.PASSWORD_RESET_PER_EMAIL)
+    email = password_reset.request_reset(db, payload.email)
+    if email is not None:
+        background.add_task(sender.send, email)
+    # Identical reply for unknown addresses, so this can't be used to find accounts.
+    return MessageOut(
+        detail="If an account uses that email, we've sent a link to reset the password."
+    )
+
+
+@router.post("/password-reset/confirm", response_model=MessageOut)
+def confirm_password_reset(
+    payload: PasswordResetConfirmIn, db: DbSession, background: BackgroundTasks
+) -> MessageOut:
+    background.add_task(
+        sender.send, password_reset.reset_password(db, payload.token, payload.password)
+    )
+    return MessageOut(detail="Your password has been changed. Please sign in.")

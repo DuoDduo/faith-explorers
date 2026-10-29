@@ -14,9 +14,14 @@ export const metadata: Metadata = {
 };
 
 async function Login({ searchParams }: Pick<PageProps<"/login">, "searchParams">) {
-  const next = safeNextPath(firstParam((await searchParams).next));
+  const params = await searchParams;
+  const next = safeNextPath(firstParam(params.next));
   if (await getCurrentUser()) redirect(next);
-  return <LoginForm next={next} />;
+  const notice =
+    firstParam(params.reset) === "1"
+      ? "Your password has been changed. Please sign in."
+      : undefined;
+  return <LoginForm next={next} notice={notice} />;
 }
 
 export default function LoginPage({ searchParams }: PageProps<"/login">) {

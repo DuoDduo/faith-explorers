@@ -61,3 +61,13 @@ export function validatePostDraft(values: PostDraftFields): Record<string, strin
   if (tags.length > MAX_TAGS) errors.tags = `Use up to ${MAX_TAGS} tags`;
   return errors;
 }
+
+export function validateNewPassword(values: { password: string; confirm: string }) {
+  const errors: Record<string, string> = {};
+  if (values.password.length < MIN_PASSWORD_LENGTH) {
+    errors.password = `Use at least ${MIN_PASSWORD_LENGTH} characters`;
+  } else if (values.password !== values.confirm) {
+    errors.confirm = "The passwords don't match";
+  }
+  return errors;
+}

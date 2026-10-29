@@ -3,6 +3,7 @@ import {
   isEmail,
   validateContact,
   validateLogin,
+  validateNewPassword,
   validatePostDraft,
   validateRegistration,
 } from "@/lib/validation";
@@ -81,5 +82,17 @@ describe("validatePostDraft", () => {
     expect(validatePostDraft({ ...valid, excerpt: "x".repeat(501) }).excerpt).toBe(
       "Keep the summary under 500 characters",
     );
+  });
+});
+
+describe("validateNewPassword", () => {
+  it("needs 8+ characters and a matching confirmation", () => {
+    expect(validateNewPassword({ password: "short", confirm: "short" })).toEqual({
+      password: "Use at least 8 characters",
+    });
+    expect(validateNewPassword({ password: "long enough", confirm: "different!" })).toEqual({
+      confirm: "The passwords don't match",
+    });
+    expect(validateNewPassword({ password: "long enough", confirm: "long enough" })).toEqual({});
   });
 });
