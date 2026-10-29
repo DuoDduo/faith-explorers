@@ -7,7 +7,7 @@ export function AuthorByline({ author, date }: { author: Author; date: string | 
     <div className="flex authorbx">
       <Avatar src={author.avatar_url} name={author.name} />
       <div className="authorname">
-        <h4>{author.name}</h4>
+        <span className="author-name">{author.name}</span>
         <span>{formatDate(date)}</span>
       </div>
     </div>

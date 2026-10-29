@@ -5,7 +5,7 @@ export function SidebarPanel({ title, children }: { title: string; children: Rea
   return (
     <div className="popularposts" data-aos="fade-up">
       <div className="poptitle">
-        <h3>{title}</h3>
+        <h2>{title}</h2>
       </div>
       {children}
     </div>

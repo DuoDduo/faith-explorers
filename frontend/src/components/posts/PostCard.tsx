@@ -21,18 +21,20 @@ export function PostCard({ post }: { post: PostSummary }) {
       <div className="edcarddetl">
         <div className="tegtime flex">
           <Link href={`/categories/${post.category.slug}`}>
-            <h5>#{post.category.name}</h5>
+            <span className="meta">#{post.category.name}</span>
           </Link>
           <ReadTime minutes={post.read_time} />
         </div>
         <Link href={href}>
-          <h2>{post.title}</h2>
+          <h3>{post.title}</h3>
         </Link>
         <p className="content">{post.excerpt}</p>
         <div className="postby flex">
           <AuthorByline author={post.author} date={post.published_at} />
-          <Link href={href} className="readmore" aria-label={`Read more: ${post.title}`}>
-            <span>Read more</span>
+          <Link href={href} className="readmore">
+            <span>
+              Read more<span className="sr-only"> about {post.title}</span>
+            </span>
           </Link>
         </div>
       </div>

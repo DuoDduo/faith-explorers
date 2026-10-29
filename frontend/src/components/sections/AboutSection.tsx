@@ -21,7 +21,7 @@ export function AboutSection({ image, title, children, reverse = false }: AboutS
     <section className="about container">
       {!reverse && media}
       <div className="content" data-aos={reverse ? "fade-right" : "fade-left"}>
-        {title && <h3>{title}</h3>}
+        {title && <h2>{title}</h2>}
         {children}
       </div>
       {reverse && media}

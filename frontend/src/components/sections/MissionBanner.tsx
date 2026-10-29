@@ -5,7 +5,7 @@ export function MissionBanner({ title, children }: { title: string; children: Re
   return (
     <div className="banner">
       <div className="content" data-aos="zoom-in-up">
-        <h3>{title}</h3>
+        <h2>{title}</h2>
         {children}
       </div>
     </div>

@@ -9,15 +9,15 @@ test("home page shows editor's picks and categories", async ({ page }) => {
 
 test("articles can be paged through and searched", async ({ page }) => {
   await page.goto("/articles");
-  const firstTitle = await page.locator(".editorcards .edcard h2").first().textContent();
+  const firstTitle = await page.locator(".editorcards .edcard h3").first().textContent();
   await page.locator(".pagination").getByRole("link", { name: "2", exact: true }).click();
   await expect(page).toHaveURL(/page=2/);
-  await expect(page.locator(".editorcards .edcard h2").first()).not.toHaveText(firstTitle!);
+  await expect(page.locator(".editorcards .edcard h3").first()).not.toHaveText(firstTitle!);
 
   await page.getByRole("searchbox", { name: "Search articles" }).fill("fasting");
   await page.getByRole("button", { name: "Search" }).click();
   await expect(page).toHaveURL(/q=fasting/);
-  await expect(page.locator(".editorcards .edcard h2")).toContainText([
+  await expect(page.locator(".editorcards .edcard h3")).toContainText([
     "The Art of Spiritual Fasting",
   ]);
 });

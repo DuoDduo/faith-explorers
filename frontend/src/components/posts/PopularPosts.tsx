@@ -14,14 +14,14 @@ export async function PopularPosts() {
           <Image src={post.cover_url ?? DEFAULT_COVER} alt="" width={120} height={90} />
           <div className="popupostde">
             <Link href={`/articles/${post.slug}`}>
-              <h4>{post.title}</h4>
+              <h3>{post.title}</h3>
             </Link>
             <div className="poputime flex">
-              <h5>
+              <span className="meta">
                 <span>{post.read_time}</span>mins read
-              </h5>
+              </span>
               <p>▪</p>
-              <h5>{formatDate(post.published_at)}</h5>
+              <span className="meta">{formatDate(post.published_at)}</span>
             </div>
           </div>
         </div>

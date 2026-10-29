@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
     serverActions: { bodySizeLimit: "6mb" },
   },
   images: {
+    formats: ["image/avif", "image/webp"],
+    // The hero sits behind a dark overlay, so it can use a lower quality than other images.
+    qualities: [60, 75],
     // /media/* is proxied from the API by src/app/media/[...path]/route.ts, so next/image
     // treats covers and avatars as local images and can optimize them.
     localPatterns: [
