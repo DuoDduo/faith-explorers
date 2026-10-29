@@ -87,6 +87,26 @@ Passwords are hashed with Argon2id.
 Uploads are decoded and re-encoded with Pillow (which also strips EXIF/GPS data), resized
 to at most 1600px wide and stored under `media/uploads/`. In Docker that folder is a volume.
 
+## Rate limits
+
+Abuse-prone endpoints are rate limited (`app/core/rate_limit.py`) and answer `429` with a
+`Retry-After` header when a limit is hit:
+
+| What | Limit |
+|---|---|
+| Sign-in | 20 per IP / 15 min, and 5 *failed* attempts per account / 15 min |
+| Sign-up | 5 per IP / hour |
+| Contact form | 5 per IP / hour |
+| Newsletter sign-up | 10 per IP / hour |
+| Comments | 10 per user / 10 min |
+| Image uploads | 30 per user / hour |
+| Author applications | 3 per user / day |
+
+All traffic reaches the API through the Next.js server, which forwards the visitor's IP in
+`X-Client-IP`. The API only trusts that header when the request also carries the shared
+`INTERNAL_API_KEY`, so it can't be spoofed by calling the API directly. Counters are kept in
+memory, which suits one API instance; use a shared store such as Redis before scaling out.
+
 ## Commands
 
 | Task | Command |

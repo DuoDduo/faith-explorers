@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+from app.core.rate_limit import RateLimitedError
+
 
 class NotFoundError(Exception):
     """Raised by services when a requested resource doesn't exist (mapped to HTTP 404)."""
@@ -44,3 +46,13 @@ def register_exception_handlers(app: FastAPI) -> None:
     async def invalid_input(_: Request, exc: InvalidInputError) -> JSONResponse:
         detail = [{"loc": ["body", exc.field], "msg": exc.message, "type": "value_error"}]
         return JSONResponse(status_code=422, content={"detail": detail})
+
+    @app.exception_handler(RateLimitedError)
+    async def rate_limited(_: Request, exc: RateLimitedError) -> JSONResponse:
+        minutes = max(1, round(exc.retry_after / 60))
+        unit = "minute" if minutes == 1 else "minutes"
+        return JSONResponse(
+            status_code=429,
+            content={"detail": f"Too many attempts. Please try again in {minutes} {unit}."},
+            headers={"Retry-After": str(exc.retry_after)},
+        )

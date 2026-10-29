@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     media_dir: Path = BASE_DIR / "media"
     media_url: str = "/media"
     session_ttl_days: int = 30
+    # Shared secret the web server sends with the visitor's IP (see core/rate_limit.py).
+    internal_api_key: str = ""
 
     @property
     def cors_origin_list(self) -> list[str]:
