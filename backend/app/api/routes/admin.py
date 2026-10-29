@@ -1,6 +1,6 @@
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, BackgroundTasks, Query
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Query
 
 from app.api.deps import CurrentAdmin, DbSession
 from app.emails import sender, templates
@@ -23,13 +23,17 @@ from app.schemas import (
     ContactMessageOut,
     FeatureIn,
     HandledIn,
+    MessageOut,
     MyPostDetail,
     MyPostSummary,
+    NewsletterIn,
+    NewsletterOverview,
     Page,
     ReviewIn,
     UserUpdateIn,
 )
 from app.services import admin as admin_service
+from app.services import newsletter as newsletter_service
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
@@ -211,3 +215,33 @@ def users(
 @router.patch("/users/{user_id}", response_model=AdminUserOut)
 def update_user(user_id: int, payload: UserUpdateIn, admin: CurrentAdmin, db: DbSession) -> User:
     return admin_service.update_user(db, admin, user_id, payload)
+
+
+# Newsletter
+
+
+@router.get("/newsletter", response_model=NewsletterOverview)
+def newsletter(_: CurrentAdmin, db: DbSession) -> NewsletterOverview:
+    return newsletter_service.overview(db)
+
+
+@router.post("/newsletter/test", response_model=MessageOut)
+def newsletter_test(
+    payload: NewsletterIn, admin: CurrentAdmin, db: DbSession, background: BackgroundTasks
+) -> MessageOut:
+    if not admin.email:
+        raise HTTPException(status_code=409, detail="Your account has no email address")
+    background.add_task(sender.send, newsletter_service.preview(db, admin.email, payload))
+    return MessageOut(detail=f"Test sent to {admin.email}.")
+
+
+@router.post("/newsletter/send", response_model=MessageOut)
+def newsletter_send(
+    payload: NewsletterIn, admin: CurrentAdmin, db: DbSession, background: BackgroundTasks
+) -> MessageOut:
+    issue, emails = newsletter_service.send_issue(db, admin, payload)
+    if issue is None:
+        return MessageOut(detail="There are no confirmed subscribers yet, so nothing was sent.")
+    background.add_task(newsletter_service.deliver, emails)
+    count = issue.recipient_count
+    return MessageOut(detail=f"Sending to {count} subscriber{'s' if count != 1 else ''}.")

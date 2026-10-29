@@ -5,7 +5,8 @@ import { redirect } from "next/navigation";
 import { ApiError, apiPost, apiPut, apiRequest } from "@/lib/api/http";
 import { loginHref } from "@/lib/auth/redirect";
 import { getSessionToken } from "@/lib/auth/session";
-import type { AdminComment, MyPost, Role } from "@/types/api";
+import type { AdminComment, Message, MyPost, Role } from "@/types/api";
+import type { FormState } from "./form-state";
 
 /** Admin actions resolve to an error message the UI can show, or nothing on success. */
 export type AdminResult = { error?: string };
@@ -95,4 +96,26 @@ export async function updateUser(
   return plainAction((t) =>
     apiRequest(`/admin/users/${id}`, { method: "PATCH", body: changes, token: t }),
   );
+}
+
+/** Send a test copy to the admin, or the real issue to every confirmed subscriber. */
+export async function sendNewsletter(_prev: FormState, formData: FormData): Promise<FormState> {
+  const values = {
+    subject: String(formData.get("subject") ?? "").trim(),
+    message: String(formData.get("message") ?? "").trim(),
+    include_recent: formData.get("include_recent") === "on" ? "on" : "",
+  };
+  const fieldErrors: Record<string, string> = {};
+  if (values.subject.length < 3) fieldErrors.subject = "Add a subject";
+  if (!values.message) fieldErrors.message = "Write a message";
+  if (Object.keys(fieldErrors).length > 0) return { status: "error", fieldErrors, values };
+
+  const isTest = formData.get("intent") === "test";
+  const body = { ...values, include_recent: values.include_recent === "on" };
+  const result = await adminCall((t) =>
+    apiPost<Message>(`/admin/newsletter/${isTest ? "test" : "send"}`, body, t),
+  );
+  if (failed(result)) return { status: "error", message: result.error, values };
+  // Keep the draft after a test so it can be tweaked; clear it once really sent.
+  return { status: "success", message: result.detail, values: isTest ? values : undefined };
 }

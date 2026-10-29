@@ -76,6 +76,8 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 | GET, PUT | `/api/admin/comments`, `/api/admin/comments/{id}/status` | admin | Moderate comments (hide / restore) |
 | GET, PUT | `/api/admin/messages`, `/api/admin/messages/{id}/handled` | admin | Contact inbox (`show=open\|handled\|all`) |
 | GET, PATCH | `/api/admin/users`, `/api/admin/users/{id}` | admin | Search users, change role or deactivate |
+| GET | `/api/admin/newsletter` | admin | Subscriber counts and sent issues |
+| POST | `/api/admin/newsletter/test`, `/send` | admin | Email a test to yourself, or the issue to confirmed subscribers |
 
 The first admin has to be set directly in the database:
 `UPDATE users SET role = 'admin' WHERE email = 'you@example.com';`

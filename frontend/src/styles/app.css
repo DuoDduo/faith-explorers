@@ -1113,3 +1113,25 @@ a.retry-button {
   font-size: 16px;
   margin-bottom: 6px;
 }
+
+/* ---- Newsletter composer ---- */
+.newsletter-composer {
+  max-width: 720px;
+  margin-bottom: 24px;
+}
+
+.newsletter-composer__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-form .newsletter-composer__buttons button {
+  margin: 0;
+  padding: 12px 24px;
+}
+
+.contact-form .secondary-button {
+  background: #fff;
+  color: var(--purple);
+}

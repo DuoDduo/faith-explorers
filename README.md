@@ -87,4 +87,5 @@ cd frontend && npm run lint && npm run typecheck && npm run format:check && npm 
 - [x] Email: password reset, contact-form forwarding, newsletter double opt-in, review notifications
 - [x] Rate limiting on sign-in, sign-up and public forms
 - [x] Production setup: `docker-compose.prod.yml` with automatic HTTPS, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+- [x] Account settings (profile, photo, password, delete account), newsletter sending, RSS feed
 - [ ] Go live

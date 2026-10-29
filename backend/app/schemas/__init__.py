@@ -31,7 +31,13 @@ from app.schemas.category import CategoryOut, CategoryRef
 from app.schemas.comment import CommentIn, CommentOut
 from app.schemas.common import MessageOut, Page
 from app.schemas.contact import ContactIn
-from app.schemas.newsletter import SubscribeIn, TokenIn
+from app.schemas.newsletter import (
+    NewsletterIn,
+    NewsletterIssueOut,
+    NewsletterOverview,
+    SubscribeIn,
+    TokenIn,
+)
 from app.schemas.post import (
     EngagementOut,
     PostDetail,
@@ -60,6 +66,9 @@ __all__ = [
     "ApplicationIn",
     "ApplicationOut",
     "MyPostDetail",
+    "NewsletterIn",
+    "NewsletterIssueOut",
+    "NewsletterOverview",
     "MyPostSummary",
     "PostWriteIn",
     "UploadOut",
