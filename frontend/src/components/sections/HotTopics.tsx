@@ -17,7 +17,7 @@ export async function HotTopics() {
             <Image src={c.cover_url ?? DEFAULT_COVER} alt="" width={200} height={300} />
             <div className="hdetails">
               <div className="hdetail">
-                <h4>{c.name}</h4>
+                <h3>{c.name}</h3>
                 <p>{pluralize(c.post_count, "Article")}</p>
               </div>
             </div>

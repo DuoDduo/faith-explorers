@@ -47,7 +47,7 @@ from app.schemas.post import (
     TagOut,
     ViewsOut,
 )
-from app.schemas.user import AuthorOut
+from app.schemas.user import AuthorOut, AuthorProfile
 
 __all__ = [
     "AccountDeleteIn",
@@ -74,6 +74,7 @@ __all__ = [
     "UploadOut",
     "AuthOut",
     "AuthorOut",
+    "AuthorProfile",
     "CategoryOut",
     "CategoryRef",
     "CommentIn",

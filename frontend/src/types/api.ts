@@ -8,6 +8,10 @@ export interface Author {
   bio: string | null;
 }
 
+export interface AuthorProfile extends Author {
+  post_count: number;
+}
+
 export interface CategoryRef {
   name: string;
   slug: string;
@@ -66,6 +70,7 @@ export type PostSort = "recent" | "popular";
 export interface PostQuery {
   category?: string;
   tag?: string;
+  author?: number;
   q?: string;
   featured?: boolean;
   sort?: PostSort;

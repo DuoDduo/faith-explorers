@@ -12,7 +12,8 @@ export function Footer() {
           <div className="box" data-aos="fade-up" data-aos-delay="150">
             <Link href="/" className="logo">
               <Image src="/images/faith2.png" alt="" width={40} height={49} />
-              aith Explorers
+              <span aria-hidden="true">aith Explorers</span>
+              <span className="sr-only">Faith Explorers</span>
             </Link>
             <p>
               We believe that the Christian faith is not just a set of beliefs, but a way of life
@@ -31,7 +32,7 @@ export function Footer() {
           </div>
 
           <nav className="box contact" aria-label="Footer" data-aos="fade-up" data-aos-delay="300">
-            <h3>Quick links</h3>
+            <h2>Quick links</h2>
             {FOOTER_NAV.map(({ href, label }) => (
               <Link key={href} href={href} className="links">
                 <i className="fas fa-arrow-right" aria-hidden="true"></i> {label}
@@ -40,7 +41,7 @@ export function Footer() {
           </nav>
 
           <div className="box" data-aos="fade-up" data-aos-delay="350">
-            <h3>Contact info</h3>
+            <h2>Contact info</h2>
             <p>
               <i className="fas fa-map" aria-hidden="true"></i> {CONTACT_INFO.address}
             </p>
@@ -53,7 +54,7 @@ export function Footer() {
           </div>
 
           <div className="box" data-aos="fade-up" data-aos-delay="300">
-            <h3>Newsletter</h3>
+            <h2>Newsletter</h2>
             <p>Subscribe for latest updates</p>
             <NewsletterForm />
           </div>

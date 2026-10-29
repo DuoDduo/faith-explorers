@@ -61,11 +61,15 @@ export function Header({ account }: { account: ReactNode }) {
   return (
     <header id="header" className={scrolled ? "scrolled" : undefined}>
       <nav className="flex container1" aria-label="Main">
-        <Link href="/" className="logo flex" aria-label="Faith Explorers home" onClick={closeMenu}>
+        <Link href="/" className="logo flex" onClick={closeMenu}>
           <div className="logoimg">
-            <Image src="/images/faith.png" alt="" width={40} height={49} priority />
+            <Image src="/images/faith.png" alt="" width={40} height={49} loading="eager" />
           </div>
-          <h3 className="logo-text">aith Explorers</h3>
+          {/* The logo image is the "F"; screen readers get the whole name instead. */}
+          <h3 className="logo-text" aria-hidden="true">
+            aith Explorers
+          </h3>
+          <span className="sr-only">Faith Explorers</span>
         </Link>
 
         <div className={`navlist flex${menuOpen ? " open" : ""}`} id="main-menu">

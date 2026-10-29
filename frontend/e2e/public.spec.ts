@@ -9,15 +9,15 @@ test("home page shows editor's picks and categories", async ({ page }) => {
 
 test("articles can be paged through and searched", async ({ page }) => {
   await page.goto("/articles");
-  const firstTitle = await page.locator(".editorcards .edcard h2").first().textContent();
+  const firstTitle = await page.locator(".editorcards .edcard h3").first().textContent();
   await page.locator(".pagination").getByRole("link", { name: "2", exact: true }).click();
   await expect(page).toHaveURL(/page=2/);
-  await expect(page.locator(".editorcards .edcard h2").first()).not.toHaveText(firstTitle!);
+  await expect(page.locator(".editorcards .edcard h3").first()).not.toHaveText(firstTitle!);
 
   await page.getByRole("searchbox", { name: "Search articles" }).fill("fasting");
   await page.getByRole("button", { name: "Search" }).click();
   await expect(page).toHaveURL(/q=fasting/);
-  await expect(page.locator(".editorcards .edcard h2")).toContainText([
+  await expect(page.locator(".editorcards .edcard h3")).toContainText([
     "The Art of Spiritual Fasting",
   ]);
 });
@@ -29,6 +29,21 @@ test("an article opens on its own page with metadata", async ({ page }) => {
   );
   await expect(page.locator(".article-body p").first()).toBeVisible();
   await expect(page.getByText("Minister Uchechukwu").first()).toBeVisible();
+});
+
+test("articles can be shared and link to their author", async ({ page }) => {
+  await page.goto("/articles/7-keys-to-building-a-christ-centered-relationship");
+  const share = page.getByRole("region", { name: "Share this article" });
+  await expect(share.getByRole("link", { name: "Share on WhatsApp" })).toHaveAttribute(
+    "href",
+    /^https:\/\/wa\.me\/\?text=7%20Keys/,
+  );
+
+  await page.locator(".article-byline").getByRole("link", { name: "Minister Uchechukwu" }).click();
+  await expect(page.getByRole("heading", { name: "Minister Uchechukwu", level: 1 })).toBeVisible();
+  await expect(page.locator(".editorcards .edcard h3")).toContainText([
+    "7 Keys to Building a Christ-Centered Relationship",
+  ]);
 });
 
 test("categories list their articles", async ({ page }) => {

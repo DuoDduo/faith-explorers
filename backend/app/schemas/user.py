@@ -6,3 +6,7 @@ class AuthorOut(ORMModel):
     name: str
     avatar_url: str | None
     bio: str | None
+
+
+class AuthorProfile(AuthorOut):
+    post_count: int

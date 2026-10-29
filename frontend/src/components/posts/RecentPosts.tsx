@@ -19,16 +19,16 @@ export async function RecentPosts() {
               <Link href={`/categories/${post.category.slug}`}>{post.category.name}</Link>
             </div>
             <Link href={`/articles/${post.slug}`}>
-              <h2>{post.title}</h2>
+              <h3>{post.title}</h3>
             </Link>
             <p>{post.excerpt}</p>
             <div className="posttimeteg flex">
               <div className="flex">
                 {post.tags.map((tag) => (
                   <Link key={tag.slug} href={`/articles?tag=${tag.slug}`}>
-                    <h5>
+                    <span className="meta">
                       <span>#{tag.name}</span>
-                    </h5>
+                    </span>
                   </Link>
                 ))}
               </div>

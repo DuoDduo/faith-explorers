@@ -21,6 +21,8 @@ def list_published(
         stmt = stmt.join(Post.category).where(Category.slug == filters.category)
     if filters.tag:
         stmt = stmt.where(Post.tags.any(Tag.slug == filters.tag))
+    if filters.author is not None:
+        stmt = stmt.where(Post.author_id == filters.author)
     if filters.q:
         pattern = f"%{filters.q}%"
         stmt = stmt.where(or_(Post.title.ilike(pattern), Post.excerpt.ilike(pattern)))

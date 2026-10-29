@@ -18,7 +18,7 @@ export function HotTopicsCarousel({ children }: { children?: ReactNode }) {
   return (
     <section className="container hottopicssec flex" data-aos="fade-up">
       <div className="hottopics">
-        <h3>Hot topics</h3>
+        <h2>Hot topics</h2>
         <p className="hottopics-intro">
           Don&apos;t miss out on the latest news about Christian Lifestyle and Relationships
         </p>

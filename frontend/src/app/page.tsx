@@ -25,7 +25,7 @@ export default function HomePage() {
           complexities of life.
         </p>
         <Link href="/about" className="btn">
-          Read more
+          Read more about us
         </Link>
       </AboutSection>
 

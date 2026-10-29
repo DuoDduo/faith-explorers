@@ -21,7 +21,7 @@ test("readers comment, like and save articles", async ({ page }) => {
   await expect(page.locator(".engagement button").filter({ hasText: "Saved" })).toBeVisible();
 
   await page.goto("/account/saved");
-  await expect(page.locator(".editorcards .edcard h2")).toContainText([
+  await expect(page.locator(".editorcards .edcard h3")).toContainText([
     "The Art of Spiritual Fasting",
   ]);
 

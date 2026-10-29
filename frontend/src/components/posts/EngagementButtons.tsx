@@ -45,11 +45,13 @@ export function EngagementButtons({ slug, initial, signedIn, loginUrl }: Engagem
   if (!signedIn) {
     return (
       <div className="engagement">
-        <Link href={loginUrl} className="engagement-button" aria-label="Sign in to like">
+        <Link href={loginUrl} className="engagement-button">
           <i className="fa-regular fa-heart" aria-hidden="true"></i> {likeLabel}
+          <span className="sr-only"> (sign in to like)</span>
         </Link>
         <Link href={loginUrl} className="engagement-button">
           <i className="fa-regular fa-bookmark" aria-hidden="true"></i> Save
+          <span className="sr-only"> (sign in to save)</span>
         </Link>
       </div>
     );

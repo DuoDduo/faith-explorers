@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Avatar } from "@/components/ui/Avatar";
 import type { Author } from "@/types/api";
 
@@ -10,6 +11,7 @@ export function AboutAuthor({ author }: { author: Author }) {
       <div>
         <h2>About {author.name}</h2>
         <p>{author.bio}</p>
+        <Link href={`/authors/${author.id}`}>More from {author.name}</Link>
       </div>
     </aside>
   );

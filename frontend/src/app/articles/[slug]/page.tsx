@@ -8,12 +8,15 @@ import { ArticleBody } from "@/components/posts/ArticleBody";
 import { AuthorByline } from "@/components/posts/AuthorByline";
 import { PostActions } from "@/components/posts/PostActions";
 import { RelatedPosts } from "@/components/posts/RelatedPosts";
+import { ShareLinks } from "@/components/posts/ShareLinks";
 import { TagList } from "@/components/posts/TagList";
 import { ViewTracker } from "@/components/posts/ViewTracker";
 import { Hero } from "@/components/ui/Hero";
 import { CardGridSkeleton, ListSkeleton } from "@/components/ui/Skeletons";
 import { DEFAULT_COVER } from "@/content/site";
 import { getPost } from "@/lib/api/posts";
+import { SITE_URL } from "@/lib/site";
+import { articleJsonLd, jsonLdScript } from "@/lib/structured-data";
 
 type Props = PageProps<"/articles/[slug]">;
 
@@ -24,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/articles/${post.slug}` },
     openGraph: {
       type: "article",
       title: post.title,
@@ -42,6 +46,10 @@ async function Article({ params }: Pick<Props, "params">) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(articleJsonLd(post, DEFAULT_COVER)) }}
+      />
       <ViewTracker slug={post.slug} />
       <Hero
         image={post.cover_url ?? DEFAULT_COVER}
@@ -62,6 +70,7 @@ async function Article({ params }: Pick<Props, "params">) {
         </div>
         <ArticleBody markdown={post.body} />
         <TagList tags={post.tags} />
+        <ShareLinks url={`${SITE_URL}/articles/${post.slug}`} title={post.title} />
         <AboutAuthor author={post.author} />
         <Suspense fallback={<ListSkeleton rows={2} />}>
           <PostComments slug={post.slug} />

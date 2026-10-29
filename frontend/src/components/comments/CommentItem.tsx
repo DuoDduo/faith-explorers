@@ -20,7 +20,7 @@ export function CommentItem({ comment, linkToPost = false, actions }: CommentIte
       <div className="authorcomment flex">
         <Avatar src={comment.user.avatar_url} name={comment.user.name} size={40} />
         <div className="authortimename">
-          <h5>{comment.user.name}</h5>
+          <span className="meta">{comment.user.name}</span>
           <span>{formatDate(comment.created_at)}</span>
         </div>
       </div>
