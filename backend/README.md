@@ -56,6 +56,10 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 | PUT, DELETE | `/api/posts/{slug}/like` | ✓ | Like / unlike (idempotent) |
 | PUT, DELETE | `/api/posts/{slug}/bookmark` | ✓ | Save / unsave (idempotent) |
 | GET | `/api/me/bookmarks` | ✓ | Your saved posts, newest first |
+| PATCH | `/api/me/profile` | ✓ | Change your name and bio |
+| PUT, DELETE | `/api/me/avatar` | ✓ | Upload (cropped to 400×400) or remove your photo |
+| POST | `/api/me/password` | ✓ | Change password; signs out your other sessions |
+| DELETE | `/api/me` | ✓ | Delete your account (password required; not for admins) |
 | POST | `/api/author-applications` | ✓ | Apply to become an author |
 | GET | `/api/me/author-application` | ✓ | Your latest application, or null |
 | GET, POST | `/api/me/posts` | author | List your posts / create a draft |

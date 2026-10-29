@@ -1,3 +1,4 @@
+from app.schemas.account import AccountDeleteIn, PasswordChangeIn, ProfileUpdateIn
 from app.schemas.admin import (
     AdminApplicationOut,
     AdminCommentOut,
@@ -43,6 +44,9 @@ from app.schemas.post import (
 from app.schemas.user import AuthorOut
 
 __all__ = [
+    "AccountDeleteIn",
+    "PasswordChangeIn",
+    "ProfileUpdateIn",
     "AdminApplicationOut",
     "AdminCommentOut",
     "AdminOverview",

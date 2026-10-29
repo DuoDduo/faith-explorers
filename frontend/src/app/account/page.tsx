@@ -32,6 +32,9 @@ async function AccountDetails() {
         </div>
       </div>
       <p className="account-links">
+        <Link href="/account/settings">
+          <i className="fa-solid fa-gear" aria-hidden="true"></i> Account settings
+        </Link>
         <Link href="/account/saved">
           <i className="fa-solid fa-bookmark" aria-hidden="true"></i> Saved articles
         </Link>
