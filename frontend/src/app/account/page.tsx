@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { AuthCard } from "@/components/auth/AuthCard";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { Avatar } from "@/components/ui/Avatar";
 import { ListSkeleton } from "@/components/ui/Skeletons";
+import { isWriter } from "@/lib/auth/guards";
 import { loginHref } from "@/lib/auth/redirect";
 import { getCurrentUser } from "@/lib/auth/session";
 
@@ -29,6 +31,25 @@ async function AccountDetails() {
           <p className="account-role">{ROLE_LABELS[user.role]}</p>
         </div>
       </div>
+      <p className="account-links">
+        <Link href="/account/saved">
+          <i className="fa-solid fa-bookmark" aria-hidden="true"></i> Saved articles
+        </Link>
+        {user.role === "admin" && (
+          <Link href="/admin">
+            <i className="fa-solid fa-gauge" aria-hidden="true"></i> Admin
+          </Link>
+        )}
+        {isWriter(user) ? (
+          <Link href="/dashboard">
+            <i className="fa-solid fa-pen" aria-hidden="true"></i> Your articles
+          </Link>
+        ) : (
+          <Link href="/become-an-author">
+            <i className="fa-solid fa-pen" aria-hidden="true"></i> Write for us
+          </Link>
+        )}
+      </p>
       <LogoutButton />
     </>
   );

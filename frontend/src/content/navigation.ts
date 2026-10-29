@@ -17,6 +17,7 @@ export const FOOTER_NAV: NavItem[] = [
   { href: "/categories", label: "Category" },
   { href: "/articles", label: "Articles" },
   { href: "/contact", label: "Contact Us" },
+  { href: "/become-an-author", label: "Write for us" },
 ];
 
 // Add the real profile URLs once the accounts exist; links without a URL are hidden.

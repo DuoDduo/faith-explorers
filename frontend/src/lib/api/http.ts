@@ -27,11 +27,16 @@ interface RequestOptions {
   method?: string;
   params?: Params;
   body?: unknown;
+  /** Multipart body (file uploads); sent instead of a JSON body. */
+  form?: FormData;
   /** Session token of the signed-in user, sent as a Bearer token. */
   token?: string;
 }
 
-async function request<T>(path: string, { method, params, body, token }: RequestOptions = {}) {
+export async function apiRequest<T>(
+  path: string,
+  { method, params, body, form, token }: RequestOptions = {},
+) {
   const headers: Record<string, string> = {};
   if (body !== undefined) headers["Content-Type"] = "application/json";
   if (token) headers.Authorization = `Bearer ${token}`;
@@ -39,7 +44,8 @@ async function request<T>(path: string, { method, params, body, token }: Request
   const res = await fetch(buildUrl(path, params), {
     method,
     headers,
-    body: body === undefined ? undefined : JSON.stringify(body),
+    // fetch sets the multipart boundary header itself for FormData.
+    body: form ?? (body === undefined ? undefined : JSON.stringify(body)),
   });
   if (!res.ok) {
     throw new ApiError(res.status, (await res.json().catch(() => null))?.detail);
@@ -48,7 +54,7 @@ async function request<T>(path: string, { method, params, body, token }: Request
 }
 
 export function apiGet<T>(path: string, params?: Params, token?: string): Promise<T> {
-  return request<T>(path, { params, token });
+  return apiRequest<T>(path, { params, token });
 }
 
 /** GET that resolves to null on 404 instead of throwing. */
@@ -62,9 +68,18 @@ export async function apiGetOrNull<T>(path: string): Promise<T | null> {
 }
 
 export function apiPost<T>(path: string, body?: unknown, token?: string): Promise<T> {
-  return request<T>(path, { method: "POST", body, token });
+  return apiRequest<T>(path, { method: "POST", body, token });
 }
 
-export function apiDelete(path: string, token?: string): Promise<void> {
-  return request<void>(path, { method: "DELETE", token });
+export function apiPut<T>(path: string, token?: string, body?: unknown): Promise<T> {
+  return apiRequest<T>(path, { method: "PUT", body, token });
+}
+
+/** DELETE; resolves to the response body, or undefined for 204 No Content. */
+export function apiDelete<T = void>(path: string, token?: string): Promise<T> {
+  return apiRequest<T>(path, { method: "DELETE", token });
+}
+
+export function apiUpload<T>(path: string, form: FormData, token?: string): Promise<T> {
+  return apiRequest<T>(path, { method: "POST", form, token });
 }

@@ -24,6 +24,7 @@ class PostSummary(ORMModel):
     featured: bool
     read_time: int
     views: int
+    like_count: int
     published_at: datetime | None
     author: AuthorOut
     category: CategoryRef
@@ -44,3 +45,9 @@ class PostFilters(BaseModel):
 
 class ViewsOut(BaseModel):
     views: int
+
+
+class EngagementOut(BaseModel):
+    like_count: int
+    liked: bool
+    bookmarked: bool

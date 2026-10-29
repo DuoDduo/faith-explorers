@@ -50,6 +50,31 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 | GET | `/api/posts/{slug}/comments` | | Visible comments on a post |
 | POST | `/api/posts/{slug}/comments` | ✓ | Add a comment |
 | DELETE | `/api/comments/{id}` | ✓ | Delete your own comment (admins: any) |
+| GET | `/api/posts/{slug}/engagement` | optional | Like count, and whether you liked / saved it |
+| PUT, DELETE | `/api/posts/{slug}/like` | ✓ | Like / unlike (idempotent) |
+| PUT, DELETE | `/api/posts/{slug}/bookmark` | ✓ | Save / unsave (idempotent) |
+| GET | `/api/me/bookmarks` | ✓ | Your saved posts, newest first |
+| POST | `/api/author-applications` | ✓ | Apply to become an author |
+| GET | `/api/me/author-application` | ✓ | Your latest application, or null |
+| GET, POST | `/api/me/posts` | author | List your posts / create a draft |
+| GET, PUT, DELETE | `/api/me/posts/{id}` | author | Read, edit or delete your post |
+| POST | `/api/me/posts/{id}/submit` | author | Send for review (admins: publish) |
+| POST | `/api/me/posts/{id}/withdraw` | author | Back from review to draft |
+| POST | `/api/uploads/images` | author | Upload a JPEG/PNG/WebP (≤ 5 MB), returns its URL |
+| GET | `/api/admin/overview` | admin | Counts of pending work and site totals |
+| GET | `/api/admin/applications` | admin | Applications (`status=pending\|approved\|rejected`) |
+| POST | `/api/admin/applications/{id}/approve`, `/reject` | admin | Review an application, optional `note` |
+| GET | `/api/admin/posts`, `/api/admin/posts/{id}` | admin | Posts by status (review queue first-come, first-served) |
+| POST | `/api/admin/posts/{id}/publish`, `/return`, `/unpublish` | admin | Publish, send back with a `note`, or take down |
+| PUT | `/api/admin/posts/{id}/featured` | admin | Add to / remove from Editor's picks |
+| GET, PUT | `/api/admin/comments`, `/api/admin/comments/{id}/status` | admin | Moderate comments (hide / restore) |
+| GET, PUT | `/api/admin/messages`, `/api/admin/messages/{id}/handled` | admin | Contact inbox (`show=open\|handled\|all`) |
+| GET, PATCH | `/api/admin/users`, `/api/admin/users/{id}` | admin | Search users, change role or deactivate |
+
+The first admin has to be set directly in the database:
+`UPDATE users SET role = 'admin' WHERE email = 'you@example.com';`
+After that, admins manage everyone else from `/admin`. Admins can't demote or deactivate
+themselves, so there's always at least one.
 | GET | `/api/comments/latest` | | Newest comments site-wide |
 | GET | `/api/categories`, `/api/categories/{slug}` | | Categories with post counts |
 | POST | `/api/contact` | | Store a contact message |
@@ -58,6 +83,9 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 Authenticated requests send `Authorization: Bearer <token>`. Tokens are random, stored only
 as SHA-256 hashes in the `sessions` table, and expire after `SESSION_TTL_DAYS` (default 30).
 Passwords are hashed with Argon2id.
+
+Uploads are decoded and re-encoded with Pillow (which also strips EXIF/GPS data), resized
+to at most 1600px wide and stored under `media/uploads/`. In Docker that folder is a volume.
 
 ## Commands
 

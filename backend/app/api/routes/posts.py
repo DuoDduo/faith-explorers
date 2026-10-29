@@ -2,11 +2,12 @@ from typing import Annotated
 
 from fastapi import APIRouter, Query, status
 
-from app.api.deps import CurrentUser, DbSession
+from app.api.deps import CurrentUser, DbSession, OptionalUser
 from app.models import Comment, Post
 from app.schemas import (
     CommentIn,
     CommentOut,
+    EngagementOut,
     Page,
     PostDetail,
     PostFilters,
@@ -14,6 +15,7 @@ from app.schemas import (
     ViewsOut,
 )
 from app.services import comments as comment_service
+from app.services import engagement as engagement_service
 from app.services import posts as post_service
 
 router = APIRouter(prefix="/posts", tags=["posts"])
@@ -49,3 +51,29 @@ def list_post_comments(slug: str, db: DbSession) -> list[Comment]:
 def add_comment(slug: str, payload: CommentIn, user: CurrentUser, db: DbSession) -> Comment:
     post = post_service.get_published(db, slug)
     return comment_service.add_comment(db, post, user, payload.body)
+
+
+@router.get("/{slug}/engagement", response_model=EngagementOut)
+def get_engagement(slug: str, user: OptionalUser, db: DbSession) -> EngagementOut:
+    """Like count, plus whether the signed-in user (if any) liked or saved the post."""
+    return engagement_service.engagement(db, post_service.get_published(db, slug), user)
+
+
+@router.put("/{slug}/like", response_model=EngagementOut)
+def like_post(slug: str, user: CurrentUser, db: DbSession) -> EngagementOut:
+    return engagement_service.like(db, post_service.get_published(db, slug), user)
+
+
+@router.delete("/{slug}/like", response_model=EngagementOut)
+def unlike_post(slug: str, user: CurrentUser, db: DbSession) -> EngagementOut:
+    return engagement_service.unlike(db, post_service.get_published(db, slug), user)
+
+
+@router.put("/{slug}/bookmark", response_model=EngagementOut)
+def bookmark_post(slug: str, user: CurrentUser, db: DbSession) -> EngagementOut:
+    return engagement_service.bookmark(db, post_service.get_published(db, slug), user)
+
+
+@router.delete("/{slug}/bookmark", response_model=EngagementOut)
+def unbookmark_post(slug: str, user: CurrentUser, db: DbSession) -> EngagementOut:
+    return engagement_service.unbookmark(db, post_service.get_published(db, slug), user)
