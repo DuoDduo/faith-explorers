@@ -53,3 +53,22 @@ jobs:
       - run: npm run format:check
       - run: npm test
       - run: npm run build
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build API image
+        run: docker build -t faith-explorers-api backend
+      - name: Build web image
+        run: docker build -t faith-explorers-web frontend
+      - name: Validate compose files
+        env:
+          DOMAIN: example.org
+          POSTGRES_USER: faith
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: faith_explorers
+          INTERNAL_API_KEY: ci
+        run: |
+          docker compose config --quiet
+          docker compose -f docker-compose.prod.yml config --quiet

@@ -1,0 +1,77 @@
+# Production stack for a single server: Postgres + API + web, behind Caddy (automatic HTTPS).
+# Only Caddy is reachable from the internet; the database and API stay on the private network.
+#
+#   cp .env.production.example .env      # fill in every value
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# See docs/DEPLOYMENT.md for the full walkthrough.
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      SITE_URL: https://${DOMAIN}
+      CORS_ORIGINS: https://${DOMAIN}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      EMAIL_BACKEND: ${EMAIL_BACKEND:-smtp}
+      EMAIL_FROM: ${EMAIL_FROM}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      CONTACT_NOTIFY_EMAIL: ${CONTACT_NOTIFY_EMAIL:-}
+    volumes:
+      - uploads:/app/media/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        SITE_URL: https://${DOMAIN}
+    restart: unless-stopped
+    environment:
+      API_URL: http://api:8000
+      SITE_URL: https://${DOMAIN}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+    depends_on:
+      - api
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+
+volumes:
+  pgdata:
+  uploads:
+  caddy_data:
+  caddy_config:

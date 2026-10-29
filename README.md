@@ -31,7 +31,9 @@ faith-explorers/
 │   ├── src/lib/            api (server-side data), actions (Server Actions), helpers
 │   └── tests/
 ├── legacy/                 original HTML/CSS/JS site
-├── docker-compose.yml      Postgres + API + web
+├── docker-compose.yml      local stack: Postgres + API + web
+├── docker-compose.prod.yml production stack behind Caddy (HTTPS)
+├── docs/DEPLOYMENT.md      how to deploy
 └── .github/workflows/ci.yml
 ```
 
@@ -84,4 +86,5 @@ cd frontend && npm run lint && npm run typecheck && npm run format:check && npm 
 - [x] Admin: author approvals, article review queue, Editor's picks, comment moderation, contact inbox, user roles
 - [x] Email: password reset, contact-form forwarding, newsletter double opt-in, review notifications
 - [x] Rate limiting on sign-in, sign-up and public forms
-- [ ] Deployment
+- [x] Production setup: `docker-compose.prod.yml` with automatic HTTPS, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+- [ ] Go live

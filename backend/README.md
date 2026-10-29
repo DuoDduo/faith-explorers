@@ -27,7 +27,7 @@ app/
     routes/          thin HTTP handlers that call services
   utils/             small pure helpers
 alembic/             migrations
-scripts/             seed.py (legacy import), optimize_images.py
+scripts/             seed.py + seed_data/ (legacy import), optimize_images.py
 tests/
   api/               endpoint tests (in-memory SQLite, seeded)
   unit/              pure-function tests

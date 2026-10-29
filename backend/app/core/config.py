@@ -1,5 +1,7 @@
 from pathlib import Path
+from typing import Literal
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BASE_DIR = Path(__file__).resolve().parents[2]  # backend/
@@ -8,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]  # backend/
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
+    environment: Literal["development", "production"] = "development"
     database_url: str = "postgresql+psycopg://faith:faith@localhost:5432/faith_explorers"
     # Comma-separated list of origins allowed to call the API from a browser.
     cors_origins: str = "http://localhost:3000"
@@ -31,6 +34,20 @@ class Settings(BaseSettings):
 
     # Shared secret the web server sends with the visitor's IP (see core/rate_limit.py).
     internal_api_key: str = ""
+
+    @field_validator("database_url")
+    @classmethod
+    def use_psycopg_driver(cls, url: str) -> str:
+        # Hosting providers hand out postgres:// or postgresql:// URLs; SQLAlchemy needs the
+        # driver named explicitly.
+        for prefix in ("postgres://", "postgresql://"):
+            if url.startswith(prefix):
+                return "postgresql+psycopg://" + url.removeprefix(prefix)
+        return url
+
+    @property
+    def is_production(self) -> bool:
+        return self.environment == "production"
 
     @property
     def cors_origin_list(self) -> list[str]:

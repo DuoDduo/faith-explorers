@@ -36,7 +36,7 @@ services:
     build:
       context: ./frontend
       args:
-        API_URL: http://api:8000
+        SITE_URL: http://localhost:3000
     environment:
       API_URL: http://api:8000
       SITE_URL: http://localhost:3000
