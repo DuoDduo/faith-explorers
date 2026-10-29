@@ -34,6 +34,7 @@ export interface PostSummary {
   featured: boolean;
   read_time: number;
   views: number;
+  like_count: number;
   published_at: string | null;
   author: Author;
   category: CategoryRef;
@@ -97,4 +98,10 @@ export interface AuthResponse {
   user: User;
   token: string;
   expires_at: string;
+}
+
+export interface Engagement {
+  like_count: number;
+  liked: boolean;
+  bookmarked: boolean;
 }

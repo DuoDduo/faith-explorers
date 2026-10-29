@@ -43,6 +43,8 @@ class Post(TimestampMixin, Base):
     featured: Mapped[bool] = mapped_column(Boolean, default=False)
     read_time: Mapped[int] = mapped_column(Integer, default=1)
     views: Mapped[int] = mapped_column(Integer, default=0)
+    # Kept in step with post_likes by the like/unlike service so listings needn't count rows.
+    like_count: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
 
     author_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)

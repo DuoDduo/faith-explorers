@@ -1,28 +1,10 @@
-import { PostGrid } from "@/components/posts/PostGrid";
-import { Pagination } from "@/components/ui/Pagination";
+import { PagedPostGrid, type PagedPostGridProps } from "@/components/posts/PagedPostGrid";
 import { getPosts } from "@/lib/api/posts";
-import { withQuery } from "@/lib/url";
 import type { PostQuery } from "@/types/api";
 
-interface PaginatedPostsProps {
-  query: PostQuery;
-  /** Path the pagination links point at, e.g. "/articles". */
-  basePath: string;
-  /** Query parameters to keep on pagination links. */
-  keep?: Record<string, string | undefined>;
-  empty?: string;
-}
+type PaginatedPostsProps = Omit<PagedPostGridProps, "data"> & { query: PostQuery };
 
-export async function PaginatedPosts({ query, basePath, keep = {}, empty }: PaginatedPostsProps) {
-  const data = await getPosts(query);
-  return (
-    <>
-      <PostGrid posts={data.items} empty={empty} />
-      <Pagination
-        page={data.page}
-        pages={data.pages}
-        hrefFor={(page) => withQuery(basePath, { ...keep, page })}
-      />
-    </>
-  );
+/** Published posts matching a query, paginated. */
+export async function PaginatedPosts({ query, ...rest }: PaginatedPostsProps) {
+  return <PagedPostGrid data={await getPosts(query)} {...rest} />;
 }

@@ -65,6 +65,11 @@ export function apiPost<T>(path: string, body?: unknown, token?: string): Promis
   return request<T>(path, { method: "POST", body, token });
 }
 
-export function apiDelete(path: string, token?: string): Promise<void> {
-  return request<void>(path, { method: "DELETE", token });
+export function apiPut<T>(path: string, token?: string, body?: unknown): Promise<T> {
+  return request<T>(path, { method: "PUT", body, token });
+}
+
+/** DELETE; resolves to the response body, or undefined for 204 No Content. */
+export function apiDelete<T = void>(path: string, token?: string): Promise<T> {
+  return request<T>(path, { method: "DELETE", token });
 }

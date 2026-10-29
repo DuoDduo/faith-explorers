@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { AuthCard } from "@/components/auth/AuthCard";
@@ -29,6 +30,11 @@ async function AccountDetails() {
           <p className="account-role">{ROLE_LABELS[user.role]}</p>
         </div>
       </div>
+      <p className="account-links">
+        <Link href="/account/saved">
+          <i className="fa-solid fa-bookmark" aria-hidden="true"></i> Saved articles
+        </Link>
+      </p>
       <LogoutButton />
     </>
   );

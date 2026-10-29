@@ -4,7 +4,15 @@ from app.schemas.comment import CommentIn, CommentOut
 from app.schemas.common import MessageOut, Page
 from app.schemas.contact import ContactIn
 from app.schemas.newsletter import SubscribeIn
-from app.schemas.post import PostDetail, PostFilters, PostSort, PostSummary, TagOut, ViewsOut
+from app.schemas.post import (
+    EngagementOut,
+    PostDetail,
+    PostFilters,
+    PostSort,
+    PostSummary,
+    TagOut,
+    ViewsOut,
+)
 from app.schemas.user import AuthorOut
 
 __all__ = [
@@ -14,6 +22,7 @@ __all__ = [
     "CategoryRef",
     "CommentIn",
     "CommentOut",
+    "EngagementOut",
     "ContactIn",
     "LoginIn",
     "MessageOut",

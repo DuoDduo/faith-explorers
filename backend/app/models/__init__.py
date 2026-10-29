@@ -4,6 +4,7 @@ from app.models.base import Base
 from app.models.category import Category
 from app.models.comment import Comment
 from app.models.contact import ContactMessage
+from app.models.engagement import Bookmark, PostLike
 from app.models.enums import CommentStatus, PostStatus, Role
 from app.models.post import Post, Tag, post_tags
 from app.models.session import UserSession
@@ -12,11 +13,13 @@ from app.models.user import User
 
 __all__ = [
     "Base",
+    "Bookmark",
     "Category",
     "Comment",
     "CommentStatus",
     "ContactMessage",
     "Post",
+    "PostLike",
     "PostStatus",
     "Role",
     "Subscriber",

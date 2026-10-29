@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { PostComments } from "@/components/comments/PostComments";
 import { ArticleBody } from "@/components/posts/ArticleBody";
 import { AuthorByline } from "@/components/posts/AuthorByline";
+import { PostActions } from "@/components/posts/PostActions";
 import { RelatedPosts } from "@/components/posts/RelatedPosts";
 import { TagList } from "@/components/posts/TagList";
 import { ViewTracker } from "@/components/posts/ViewTracker";
@@ -54,6 +55,9 @@ async function Article({ params }: Pick<Props, "params">) {
       <article className="article-page container">
         <div className="postby flex article-byline">
           <AuthorByline author={post.author} date={post.published_at} />
+          <Suspense fallback={<div className="engagement skeleton engagement-placeholder" />}>
+            <PostActions slug={post.slug} />
+          </Suspense>
         </div>
         <ArticleBody markdown={post.body} />
         <TagList tags={post.tags} />

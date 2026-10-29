@@ -79,7 +79,7 @@ cd frontend && npm run lint && npm run typecheck && npm run format:check && npm 
 - [x] Working contact form and newsletter sign-up
 - [x] Accounts: register, sign in/out, account page, reader / author / admin roles
 - [x] Signed-in readers comment on articles and can delete their own comments (admins: any)
-- [ ] Likes and bookmarks
+- [x] Likes and saved articles
 - [ ] "Become an author" applications, author dashboard with a Markdown editor and image upload
 - [ ] Admin: approve posts and authors, moderate comments, read contact messages
 - [ ] Email: contact-form notifications, newsletter double opt-in

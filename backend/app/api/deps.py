@@ -35,5 +35,13 @@ def get_current_user(db: DbSession, token: Annotated[str, Depends(get_token)]) -
     return user
 
 
+def get_optional_user(db: DbSession, credentials: BearerToken) -> User | None:
+    """The signed-in user, or None for anonymous or expired sessions (never raises)."""
+    if credentials is None:
+        return None
+    return auth_service.user_for_token(db, credentials.credentials)
+
+
 SessionToken = Annotated[str, Depends(get_token)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
+OptionalUser = Annotated[User | None, Depends(get_optional_user)]

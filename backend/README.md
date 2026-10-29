@@ -50,6 +50,10 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 | GET | `/api/posts/{slug}/comments` | | Visible comments on a post |
 | POST | `/api/posts/{slug}/comments` | ✓ | Add a comment |
 | DELETE | `/api/comments/{id}` | ✓ | Delete your own comment (admins: any) |
+| GET | `/api/posts/{slug}/engagement` | optional | Like count, and whether you liked / saved it |
+| PUT, DELETE | `/api/posts/{slug}/like` | ✓ | Like / unlike (idempotent) |
+| PUT, DELETE | `/api/posts/{slug}/bookmark` | ✓ | Save / unsave (idempotent) |
+| GET | `/api/me/bookmarks` | ✓ | Your saved posts, newest first |
 | GET | `/api/comments/latest` | | Newest comments site-wide |
 | GET | `/api/categories`, `/api/categories/{slug}` | | Categories with post counts |
 | POST | `/api/contact` | | Store a contact message |
