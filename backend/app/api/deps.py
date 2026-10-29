@@ -57,3 +57,12 @@ def get_current_writer(user: CurrentUser) -> User:
 
 
 CurrentWriter = Annotated[User, Depends(get_current_writer)]
+
+
+def get_current_admin(user: CurrentUser) -> User:
+    if user.role != Role.ADMIN:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admins only")
+    return user
+
+
+CurrentAdmin = Annotated[User, Depends(get_current_admin)]

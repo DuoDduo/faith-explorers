@@ -1,13 +1,12 @@
 """Likes and bookmarks. Both operations are idempotent: repeating them changes nothing."""
 
-import math
-
-from sqlalchemy import delete, func, select, update
+from sqlalchemy import delete, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload, selectinload
 
 from app.models import Bookmark, Post, PostLike, PostStatus, User
 from app.schemas import EngagementOut, Page, PostSummary
+from app.services.pagination import paginate
 
 
 def _insert_once(db: Session, row: PostLike | Bookmark) -> bool:
@@ -71,17 +70,12 @@ def list_bookmarks(db: Session, user: User, page: int, page_size: int) -> Page[P
         .join(Bookmark, Bookmark.post_id == Post.id)
         .where(Bookmark.user_id == user.id, Post.status == PostStatus.PUBLISHED)
     )
-    total = db.scalar(select(func.count()).select_from(stmt.subquery())) or 0
-    posts = db.scalars(
-        stmt.order_by(Bookmark.created_at.desc())
-        .offset((page - 1) * page_size)
-        .limit(page_size)
-        .options(joinedload(Post.author), joinedload(Post.category), selectinload(Post.tags))
-    ).all()
-    return Page[PostSummary](
-        items=[PostSummary.model_validate(p) for p in posts],
-        total=total,
+    return paginate(
+        db,
+        stmt,
+        PostSummary,
         page=page,
         page_size=page_size,
-        pages=max(1, math.ceil(total / page_size)),
+        order_by=(Bookmark.created_at.desc(),),
+        options=(joinedload(Post.author), joinedload(Post.category), selectinload(Post.tags)),
     )

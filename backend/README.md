@@ -61,6 +61,20 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 | POST | `/api/me/posts/{id}/submit` | author | Send for review (admins: publish) |
 | POST | `/api/me/posts/{id}/withdraw` | author | Back from review to draft |
 | POST | `/api/uploads/images` | author | Upload a JPEG/PNG/WebP (≤ 5 MB), returns its URL |
+| GET | `/api/admin/overview` | admin | Counts of pending work and site totals |
+| GET | `/api/admin/applications` | admin | Applications (`status=pending\|approved\|rejected`) |
+| POST | `/api/admin/applications/{id}/approve`, `/reject` | admin | Review an application, optional `note` |
+| GET | `/api/admin/posts`, `/api/admin/posts/{id}` | admin | Posts by status (review queue first-come, first-served) |
+| POST | `/api/admin/posts/{id}/publish`, `/return`, `/unpublish` | admin | Publish, send back with a `note`, or take down |
+| PUT | `/api/admin/posts/{id}/featured` | admin | Add to / remove from Editor's picks |
+| GET, PUT | `/api/admin/comments`, `/api/admin/comments/{id}/status` | admin | Moderate comments (hide / restore) |
+| GET, PUT | `/api/admin/messages`, `/api/admin/messages/{id}/handled` | admin | Contact inbox (`show=open\|handled\|all`) |
+| GET, PATCH | `/api/admin/users`, `/api/admin/users/{id}` | admin | Search users, change role or deactivate |
+
+The first admin has to be set directly in the database:
+`UPDATE users SET role = 'admin' WHERE email = 'you@example.com';`
+After that, admins manage everyone else from `/admin`. Admins can't demote or deactivate
+themselves, so there's always at least one.
 | GET | `/api/comments/latest` | | Newest comments site-wide |
 | GET | `/api/categories`, `/api/categories/{slug}` | | Categories with post counts |
 | POST | `/api/contact` | | Store a contact message |

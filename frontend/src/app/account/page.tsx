@@ -35,6 +35,11 @@ async function AccountDetails() {
         <Link href="/account/saved">
           <i className="fa-solid fa-bookmark" aria-hidden="true"></i> Saved articles
         </Link>
+        {user.role === "admin" && (
+          <Link href="/admin">
+            <i className="fa-solid fa-gauge" aria-hidden="true"></i> Admin
+          </Link>
+        )}
         {isWriter(user) ? (
           <Link href="/dashboard">
             <i className="fa-solid fa-pen" aria-hidden="true"></i> Your articles

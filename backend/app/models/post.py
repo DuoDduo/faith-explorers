@@ -46,6 +46,8 @@ class Post(TimestampMixin, Base):
     # Kept in step with post_likes by the like/unlike service so listings needn't count rows.
     like_count: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
+    # Editor feedback when a submission is sent back; cleared when resubmitted.
+    review_note: Mapped[str | None] = mapped_column(Text)
 
     author_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
     category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"), index=True)

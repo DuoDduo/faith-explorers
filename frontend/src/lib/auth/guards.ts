@@ -22,3 +22,10 @@ export async function requireWriter(back: string): Promise<User> {
   if (!isWriter(user)) redirect("/become-an-author");
   return user;
 }
+
+/** An admin; everyone else is sent home. */
+export async function requireAdmin(back: string): Promise<User> {
+  const user = await requireUser(back);
+  if (user.role !== "admin") redirect("/");
+  return user;
+}

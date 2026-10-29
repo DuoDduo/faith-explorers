@@ -81,6 +81,6 @@ cd frontend && npm run lint && npm run typecheck && npm run format:check && npm 
 - [x] Signed-in readers comment on articles and can delete their own comments (admins: any)
 - [x] Likes and saved articles
 - [x] "Write for us" applications; author dashboard with a Markdown editor, preview and cover uploads
-- [ ] Admin: approve authors and submitted posts, moderate comments, read contact messages
+- [x] Admin: author approvals, article review queue, Editor's picks, comment moderation, contact inbox, user roles
 - [ ] Email: contact-form notifications, newsletter double opt-in
 - [ ] Deployment

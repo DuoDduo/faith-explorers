@@ -22,6 +22,9 @@ export function MyPostsList({ posts }: { posts: MyPostSummary[] }) {
               {post.category.name} · updated {formatDate(post.updated_at)}
               {post.status === "published" && ` · ${post.views} views · ${post.like_count} likes`}
             </p>
+            {post.review_note && post.status === "draft" && (
+              <p className="my-posts__note">Editor feedback: {post.review_note}</p>
+            )}
           </div>
           <StatusBadge status={post.status} />
         </li>

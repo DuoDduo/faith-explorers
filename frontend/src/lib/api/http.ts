@@ -33,7 +33,7 @@ interface RequestOptions {
   token?: string;
 }
 
-async function request<T>(
+export async function apiRequest<T>(
   path: string,
   { method, params, body, form, token }: RequestOptions = {},
 ) {
@@ -54,7 +54,7 @@ async function request<T>(
 }
 
 export function apiGet<T>(path: string, params?: Params, token?: string): Promise<T> {
-  return request<T>(path, { params, token });
+  return apiRequest<T>(path, { params, token });
 }
 
 /** GET that resolves to null on 404 instead of throwing. */
@@ -68,18 +68,18 @@ export async function apiGetOrNull<T>(path: string): Promise<T | null> {
 }
 
 export function apiPost<T>(path: string, body?: unknown, token?: string): Promise<T> {
-  return request<T>(path, { method: "POST", body, token });
+  return apiRequest<T>(path, { method: "POST", body, token });
 }
 
 export function apiPut<T>(path: string, token?: string, body?: unknown): Promise<T> {
-  return request<T>(path, { method: "PUT", body, token });
+  return apiRequest<T>(path, { method: "PUT", body, token });
 }
 
 /** DELETE; resolves to the response body, or undefined for 204 No Content. */
 export function apiDelete<T = void>(path: string, token?: string): Promise<T> {
-  return request<T>(path, { method: "DELETE", token });
+  return apiRequest<T>(path, { method: "DELETE", token });
 }
 
 export function apiUpload<T>(path: string, form: FormData, token?: string): Promise<T> {
-  return request<T>(path, { method: "POST", form, token });
+  return apiRequest<T>(path, { method: "POST", form, token });
 }

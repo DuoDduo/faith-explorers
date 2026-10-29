@@ -1,8 +1,6 @@
 """Author applications and authors' own posts (drafts, edits, submission for review)."""
 
-import math
-
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload, selectinload
 
 from app.core.exceptions import ConflictError, InvalidInputError, NotFoundError
@@ -18,6 +16,7 @@ from app.models import (
 )
 from app.models.base import utcnow
 from app.schemas import ApplicationIn, MyPostSummary, Page, PostWriteIn
+from app.services.pagination import paginate
 from app.utils.text import read_time_minutes, slugify
 
 WRITER_ROLES = (Role.AUTHOR, Role.ADMIN)
@@ -99,19 +98,14 @@ def _apply_fields(db: Session, post: Post, payload: PostWriteIn) -> None:
 
 def list_my_posts(db: Session, user: User, page: int, page_size: int) -> Page[MyPostSummary]:
     stmt = select(Post).where(Post.author_id == user.id)
-    total = db.scalar(select(func.count()).select_from(stmt.subquery())) or 0
-    posts = db.scalars(
-        stmt.order_by(Post.updated_at.desc(), Post.id.desc())
-        .offset((page - 1) * page_size)
-        .limit(page_size)
-        .options(*_with_relations())
-    ).all()
-    return Page[MyPostSummary](
-        items=[MyPostSummary.model_validate(p) for p in posts],
-        total=total,
+    return paginate(
+        db,
+        stmt,
+        MyPostSummary,
         page=page,
         page_size=page_size,
-        pages=max(1, math.ceil(total / page_size)),
+        order_by=(Post.updated_at.desc(), Post.id.desc()),
+        options=_with_relations(),
     )
 
 
@@ -146,6 +140,7 @@ def submit_post(db: Session, user: User, post_id: int) -> Post:
     post = get_my_post(db, user, post_id)
     if post.status == PostStatus.PUBLISHED:
         raise ConflictError("This post is already published")
+    post.review_note = None
     if user.role == Role.ADMIN:
         post.status = PostStatus.PUBLISHED
         post.published_at = utcnow()

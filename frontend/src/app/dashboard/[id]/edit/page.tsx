@@ -40,6 +40,11 @@ async function EditPost({ params }: Pick<PageProps<"/dashboard/[id]/edit">, "par
         }
         contained={false}
       />
+      {post.review_note && post.status === "draft" && (
+        <div className="review-note" role="note">
+          <strong>Feedback from the editor:</strong> {post.review_note}
+        </div>
+      )}
       <PostStatusActions postId={post.id} slug={post.slug} status={post.status} role={user.role} />
       <PostEditor post={post} categories={await getCategories()} />
     </>

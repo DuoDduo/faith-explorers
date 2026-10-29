@@ -70,11 +70,13 @@ class PostWriteIn(BaseModel):
 class MyPostSummary(PostSummary):
     status: PostStatus
     updated_at: datetime
+    review_note: str | None
 
 
 class MyPostDetail(PostDetail):
     status: PostStatus
     updated_at: datetime
+    review_note: str | None
 
 
 class UploadOut(BaseModel):

@@ -164,6 +164,7 @@ header nav .logo {
 }
 
 .search-form input {
+  flex: 1;
   border: none;
   background: transparent;
   padding: 10px 16px;
@@ -742,4 +743,271 @@ a.retry-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+/* ---- Admin ---- */
+.admin {
+  padding: 110px 16px 60px;
+  max-width: 1100px;
+}
+
+.admin__title {
+  color: var(--purple);
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.admin__section-title {
+  font-size: 16px;
+  margin: 24px 0 12px;
+  color: #333;
+}
+
+.admin-nav,
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.admin-nav {
+  border-bottom: 1px solid #e5dcf3;
+  padding-bottom: 8px;
+}
+
+.admin-nav a,
+.filter-tabs a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--purple);
+  font-size: 14px;
+}
+
+.admin-nav a[aria-current="page"],
+.filter-tabs a[aria-selected="true"] {
+  background: var(--purple);
+  color: #fff;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px;
+  border-radius: 14px;
+  background: var(--lilac);
+  color: #222;
+}
+
+.stat-card--attention {
+  background: #fff3cd;
+  outline: 2px solid #f0c36d;
+}
+
+.stat-card__value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--purple);
+}
+
+.admin-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-card {
+  transform: none;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: var(--lilac);
+}
+
+.admin-card--muted {
+  opacity: 0.65;
+}
+
+.admin-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  align-items: baseline;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.admin-card__header strong {
+  color: #000;
+  font-size: 15px;
+}
+
+.admin-card__header a {
+  color: var(--purple);
+}
+
+.admin-card__quote {
+  border-left: 3px solid var(--purple);
+  padding-left: 12px;
+  margin: 8px 0 12px;
+  white-space: pre-line;
+}
+
+.admin-card__message {
+  white-space: pre-line;
+  margin-bottom: 12px;
+}
+
+.admin-card__note {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.admin-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.admin-action {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-button {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--purple);
+  background: #fff;
+  color: var(--purple);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.admin-button--primary {
+  background: var(--purple);
+  color: #fff;
+}
+
+.admin-button--danger {
+  border-color: #b42318;
+  color: #b42318;
+}
+
+.admin-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.note-action {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 520px;
+}
+
+.note-action textarea {
+  padding: 10px;
+  border: 1px solid var(--purple);
+  border-radius: 10px;
+  font: inherit;
+}
+
+.note-action__buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.admin-review__header h2 {
+  margin: 10px 0 6px;
+  font-size: 26px;
+}
+
+.admin-review__excerpt {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.admin-review__actions {
+  margin: 20px 0;
+}
+
+.admin-review__cover {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.admin-search {
+  max-width: 420px;
+  margin-bottom: 16px;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee5f8;
+  vertical-align: middle;
+}
+
+.admin-table th {
+  color: #555;
+  font-weight: 600;
+}
+
+.admin-table select {
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--purple);
+  font: inherit;
+}
+
+.admin-table__muted td {
+  color: #888;
+}
+
+.review-note,
+.my-posts__note {
+  background: #fff3cd;
+  color: #5c4400;
+  border-radius: 10px;
+}
+
+.review-note {
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.my-posts__note {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
 }

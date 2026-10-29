@@ -1,11 +1,10 @@
-import math
-
-from sqlalchemy import Select, func, or_, select, update
+from sqlalchemy import Select, or_, select, update
 from sqlalchemy.orm import Session, joinedload, selectinload
 
 from app.core.exceptions import NotFoundError
 from app.models import Category, Comment, CommentStatus, Post, PostStatus, Tag
 from app.schemas import Page, PostFilters, PostSummary
+from app.services.pagination import paginate
 
 _SUMMARY_OPTIONS = (joinedload(Post.author), joinedload(Post.category), selectinload(Post.tags))
 
@@ -28,26 +27,19 @@ def list_published(
     if filters.featured is not None:
         stmt = stmt.where(Post.featured == filters.featured)
 
-    total = db.scalar(select(func.count()).select_from(stmt.subquery())) or 0
-
     order = (
         (Post.views.desc(), Post.published_at.desc())
         if filters.sort == "popular"
         else (Post.published_at.desc(), Post.id.desc())
     )
-    items = db.scalars(
-        stmt.order_by(*order)
-        .offset((page - 1) * page_size)
-        .limit(page_size)
-        .options(*_SUMMARY_OPTIONS)
-    ).all()
-
-    return Page[PostSummary](
-        items=[PostSummary.model_validate(p) for p in items],
-        total=total,
+    return paginate(
+        db,
+        stmt,
+        PostSummary,
         page=page,
         page_size=page_size,
-        pages=max(1, math.ceil(total / page_size)),
+        order_by=order,
+        options=_SUMMARY_OPTIONS,
     )
 
 
