@@ -23,6 +23,10 @@ header nav .logo {
   color: inherit;
 }
 
+.logo-text {
+  color: var(--purple);
+}
+
 @media screen and (max-width: 1010px) {
   .navlist.open {
     display: block;
@@ -90,28 +94,60 @@ header nav .logo {
   flex-wrap: wrap;
 }
 
-.pagination button {
-  background-color: var(--purple);
-  border: 1px solid var(--purple);
-  color: #fff;
-  padding: 8px 16px;
-  cursor: pointer;
+.showmorepost.pagination a {
   border-radius: 4px;
+  padding: 8px 16px;
+  border: 1px solid var(--purple);
 }
 
-.pagination button:hover:not(:disabled),
-.pagination button.active {
+.showmorepost.pagination a:hover,
+.showmorepost.pagination a.active {
   background-color: var(--lilac);
   color: var(--purple);
 }
 
-.pagination button:disabled {
-  opacity: 0.4;
-  cursor: default;
+.retry-button {
+  border: none;
+  border-radius: 80px;
+  padding: 18px 30px;
+  background: var(--purple);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
 }
 
-/* ---- Articles page ---- */
-.articles-heading {
+/* ---- Loading placeholders ---- */
+.skeleton {
+  background: linear-gradient(90deg, #eee8f6 25%, #f6f2fb 50%, #eee8f6 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+.skeleton-row {
+  height: 72px;
+  margin-bottom: 16px;
+}
+
+@keyframes skeleton-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+/* ---- Home ---- */
+.hottopics-intro {
+  color: #000;
+}
+
+/* ---- Section heading with an aside (search box) ---- */
+.section-heading--split {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -345,4 +381,25 @@ header nav .logo {
   .search-form input {
     min-width: 0;
   }
+}
+
+/* ---- Footer ---- */
+/* Social icons without a profile URL yet render as <span>; style them like the links. */
+.footer .box-container .box .share span {
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  color: #fff;
+  margin-right: 10px;
+  text-align: center;
+  padding: 15px;
+}
+
+.footer .box-container .box .logo img {
+  height: auto;
+}
+
+.logo .logoimg img {
+  height: auto;
 }

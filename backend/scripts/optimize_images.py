@@ -12,7 +12,7 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
-from app.utils import slugify
+from app.utils.text import slugify
 
 REPO = Path(__file__).resolve().parents[2]
 SOURCE = REPO / "legacy" / "sopimages"
