@@ -24,7 +24,7 @@ from pathlib import Path
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
-from app.db import SessionLocal
+from app.core.database import SessionLocal
 from app.models import (
     Category,
     Comment,
@@ -35,7 +35,7 @@ from app.models import (
     User,
     post_tags,
 )
-from app.utils import read_time_minutes, slugify
+from app.utils.text import read_time_minutes, slugify
 
 LEGACY = Path(__file__).resolve().parents[2] / "legacy"
 

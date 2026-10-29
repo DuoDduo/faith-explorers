@@ -1,4 +1,7 @@
-# Local Postgres for development: `docker compose up -d`
+# Full stack: Postgres + FastAPI + Next.js
+#   docker compose up --build
+#   docker compose run --rm api python -m scripts.seed   # first run: import the articles
+# Postgres only (for local development): docker compose up -d db
 services:
   db:
     image: postgres:16
@@ -10,6 +13,33 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U faith -d faith_explorers"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://faith:faith@db:5432/faith_explorers
+      CORS_ORIGINS: http://localhost:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        API_URL: http://api:8000
+    environment:
+      API_URL: http://api:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
 
 volumes:
   pgdata:
