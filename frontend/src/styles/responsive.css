@@ -1,0 +1,156 @@
+@media screen and (max-width: 1010px) {
+
+    .searchbar,
+    .subbtn {
+        display: none;
+    }
+
+    .toggle {
+        display: flex;
+    }
+
+    .navlist {
+        position: absolute;
+        right: 0;
+        top: 60px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.22);
+        border-radius: 10px;
+        height: 400px;
+        display: none;
+    }
+    .back-Button {
+        background-color: #53179a;
+        padding: 10px;
+        cursor: pointer;
+        color: white;
+        outline: none;
+        border-radius: 15px;
+        margin-bottom:20px;
+        border: none;
+        width: 100%;
+        
+      }
+    .navlist ul {
+        margin-top: 30px;
+        width: 250px;
+        flex-direction: column;
+    }
+
+    .body .navlist {
+        background-color: #1c2845;
+    }
+
+    body::after {
+        display: none;
+    }
+
+    
+    .contact{
+        margin: 0;
+    }
+    .emailsub {
+        width: 100%;
+    }
+
+    .hottopicssec {
+        flex-direction: column;
+        align-items: center;
+        height: 450px;
+        margin: 20px;
+    }
+
+    .hotcards {
+        width: 100%;
+    }
+
+    .bigtitle {
+        padding: 0 20px;
+    }
+
+ 
+    .editorcards {
+        padding: 20px;
+    }
+
+    .edcard{
+        min-width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+  
+
+    .tegsec {
+        padding: 10px 7px;
+        font-size: 13px;
+    }
+
+    .tegsec a {
+        width: 45%;
+    }
+
+    .recentpostsec {
+        flex-direction: column;
+    }
+
+    .posts {
+        padding: 20px;
+    }
+
+    .post {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .post a,
+    .post a img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .postdetails {
+        padding: 10px 0;
+    }
+
+    .postslider {
+        width: 100%;
+        padding: 0 20px;
+        margin: 0;
+    }
+    /* .footer{
+        margin: 10px 20px;
+    } */
+    /* footer {
+        padding: 30px;
+        margin: 0;
+    } */
+
+    .footersec {
+        flex-direction: column;
+    }
+
+    .themeauthor {
+        flex-direction: column;
+    }
+
+    .createdby {
+        margin: 10px 0;
+    }
+    
+}
+ @media screen and (max-width: 430px) {
+    .back-Button {
+        background-color: #53179a;
+        padding: 10px;
+        cursor: pointer;
+        color: white;
+        outline: none;
+        border-radius: 15px;
+        margin-bottom:20px;
+        border: none;
+        /* width: 100%; */
+        
+      }
+}
