@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: { default: "Faith Explorers", template: "%s | Faith Explorers" },
   description: "Articles on faith, relationships, family and spiritual growth.",
   icons: { icon: "/images/faith.png" },
+  alternates: {
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: "Faith Explorers" }] },
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

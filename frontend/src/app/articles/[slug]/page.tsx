@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { PostComments } from "@/components/comments/PostComments";
+import { AboutAuthor } from "@/components/posts/AboutAuthor";
 import { ArticleBody } from "@/components/posts/ArticleBody";
 import { AuthorByline } from "@/components/posts/AuthorByline";
 import { PostActions } from "@/components/posts/PostActions";
@@ -61,6 +62,7 @@ async function Article({ params }: Pick<Props, "params">) {
         </div>
         <ArticleBody markdown={post.body} />
         <TagList tags={post.tags} />
+        <AboutAuthor author={post.author} />
         <Suspense fallback={<ListSkeleton rows={2} />}>
           <PostComments slug={post.slug} />
         </Suspense>

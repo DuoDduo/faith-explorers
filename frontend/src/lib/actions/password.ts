@@ -13,7 +13,11 @@ export async function requestPasswordReset(
 ): Promise<FormState> {
   const email = String(formData.get("email") ?? "").trim();
   if (!isEmail(email)) {
-    return { status: "error", fieldErrors: { email: "Enter the email you signed up with" } };
+    return {
+      status: "error",
+      fieldErrors: { email: "Enter the email you signed up with" },
+      values: { email },
+    };
   }
   try {
     const { detail } = await apiPost<Message>("/auth/password-reset", { email });

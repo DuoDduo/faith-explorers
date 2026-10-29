@@ -163,3 +163,9 @@ export interface AdminUser {
   is_active: boolean;
   created_at: string;
 }
+
+export interface NewsletterOverview {
+  confirmed: number;
+  pending: number;
+  issues: { id: number; subject: string; recipient_count: number; sent_at: string }[];
+}

@@ -3,3 +3,7 @@ node_modules
 .env*
 !.env.example
 tests
+e2e
+playwright.config.ts
+test-results
+playwright-report

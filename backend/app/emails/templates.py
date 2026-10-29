@@ -107,3 +107,18 @@ def post_returned(to: str, name: str, title: str, post_id: int, note: str | None
             + SIGN_OFF
         ),
     )
+
+
+def newsletter_issue(
+    to: str, subject: str, message: str, posts: list[tuple[str, str]], unsubscribe_token: str
+) -> Email:
+    """`posts` is a list of (title, slug) for the "New on Faith Explorers" section."""
+    articles = ""
+    if posts:
+        lines = "\n\n".join(f"{title}\n{_link(f'/articles/{slug}')}" for title, slug in posts)
+        articles = f"\n\nNew on Faith Explorers\n----------------------\n\n{lines}"
+    footer = (
+        "\n\n--\nYou're receiving this because you subscribed at Faith Explorers.\n"
+        f"Unsubscribe: {_link(f'/newsletter/unsubscribe?token={unsubscribe_token}')}"
+    )
+    return Email(to=to, subject=subject, text=f"{message.strip()}{articles}{SIGN_OFF}{footer}")

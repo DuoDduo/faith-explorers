@@ -1021,3 +1021,117 @@ a.retry-button {
 .forgot-link a {
   color: var(--purple);
 }
+
+/* ---- Account settings ---- */
+.settings {
+  max-width: 720px;
+}
+
+.settings-section {
+  padding: 24px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: var(--lilac);
+}
+
+.settings-section h2 {
+  font-size: 18px;
+  color: var(--purple);
+  margin-bottom: 8px;
+}
+
+.settings-section .contact-form button {
+  margin: 0;
+  align-self: flex-start;
+  padding: 12px 24px;
+}
+
+.settings-section--danger {
+  background: #fdecea;
+}
+
+.settings-section--danger h2 {
+  color: #b42318;
+}
+
+.contact-form .danger-button {
+  background: #b42318;
+  border-color: #b42318;
+}
+
+.contact-form .danger-button:hover:not(:disabled) {
+  background: #fff;
+  color: #b42318;
+}
+
+.checkbox-field {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.contact-form .checkbox-field input {
+  width: auto;
+  margin: 4px 0 0;
+}
+
+.avatar-form {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.avatar-form img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-form__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.about-author {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin: 24px 0;
+  padding: 20px;
+  border-left: 4px solid var(--purple);
+  background: #faf7fe;
+  border-radius: 0 12px 12px 0;
+}
+
+.about-author img {
+  border-radius: 50%;
+}
+
+.about-author h2 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+/* ---- Newsletter composer ---- */
+.newsletter-composer {
+  max-width: 720px;
+  margin-bottom: 24px;
+}
+
+.newsletter-composer__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-form .newsletter-composer__buttons button {
+  margin: 0;
+  padding: 12px 24px;
+}
+
+.contact-form .secondary-button {
+  background: #fff;
+  color: var(--purple);
+}

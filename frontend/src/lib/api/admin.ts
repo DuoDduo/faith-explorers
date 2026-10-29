@@ -9,6 +9,7 @@ import type {
   ContactMessage,
   MyPost,
   MyPostSummary,
+  NewsletterOverview,
   Page,
 } from "@/types/api";
 import { ApiError, apiGet } from "./http";
@@ -46,3 +47,5 @@ export const getMessages = (show: string, page: number) =>
 
 export const getUsers = (q: string | undefined, page: number) =>
   adminGet<Page<AdminUser>>("/users", { q, page });
+
+export const getNewsletter = () => adminGet<NewsletterOverview>("/newsletter");

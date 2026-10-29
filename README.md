@@ -29,7 +29,8 @@ faith-explorers/
 │   ├── src/app/            routes
 │   ├── src/components/     layout · ui · sections · posts · comments · categories · forms
 │   ├── src/lib/            api (server-side data), actions (Server Actions), helpers
-│   └── tests/
+│   ├── tests/              unit and component tests (Vitest)
+│   └── e2e/                browser tests of the main journeys (Playwright)
 ├── legacy/                 original HTML/CSS/JS site
 ├── docker-compose.yml      local stack: Postgres + API + web
 ├── docker-compose.prod.yml production stack behind Caddy (HTTPS)
@@ -74,6 +75,10 @@ cd backend  && uv run ruff check . && uv run ruff format --check . && uv run pyt
 cd frontend && npm run lint && npm run typecheck && npm run format:check && npm test && npm run build
 ```
 
+CI also builds the Docker images and runs browser tests (Playwright) against a real API,
+database and production build. See [frontend/e2e/README.md](frontend/e2e/README.md) to run
+them locally.
+
 ## Roadmap
 
 - [x] Next.js frontend with the original design; articles have their own URLs
@@ -87,4 +92,5 @@ cd frontend && npm run lint && npm run typecheck && npm run format:check && npm 
 - [x] Email: password reset, contact-form forwarding, newsletter double opt-in, review notifications
 - [x] Rate limiting on sign-in, sign-up and public forms
 - [x] Production setup: `docker-compose.prod.yml` with automatic HTTPS, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+- [x] Account settings (profile, photo, password, delete account), newsletter sending, RSS feed
 - [ ] Go live

@@ -14,8 +14,11 @@ MAX_WIDTH = 1600
 FORMATS = {"JPEG": ".jpg", "PNG": ".png", "WEBP": ".webp"}
 
 
-def save_image(data: bytes) -> str:
-    """Store an uploaded image and return its public URL (/media/uploads/...)."""
+def save_image(data: bytes, *, square: int | None = None) -> str:
+    """Store an uploaded image and return its public URL (/media/uploads/...).
+
+    With `square`, the image is center-cropped to a square of that size (avatars).
+    """
     if len(data) > MAX_BYTES:
         raise InvalidInputError("file", "Images can be up to 5 MB")
     try:
@@ -31,7 +34,9 @@ def save_image(data: bytes) -> str:
 
     # Re-encoding drops EXIF data (including GPS location) from photos.
     image = ImageOps.exif_transpose(image)
-    if image.width > MAX_WIDTH:
+    if square is not None:
+        image = ImageOps.fit(image, (square, square))
+    elif image.width > MAX_WIDTH:
         image = image.resize((MAX_WIDTH, round(image.height * MAX_WIDTH / image.width)))
 
     now = datetime.now(UTC)
