@@ -31,6 +31,21 @@ test("an article opens on its own page with metadata", async ({ page }) => {
   await expect(page.getByText("Minister Uchechukwu").first()).toBeVisible();
 });
 
+test("articles can be shared and link to their author", async ({ page }) => {
+  await page.goto("/articles/7-keys-to-building-a-christ-centered-relationship");
+  const share = page.getByRole("region", { name: "Share this article" });
+  await expect(share.getByRole("link", { name: "Share on WhatsApp" })).toHaveAttribute(
+    "href",
+    /^https:\/\/wa\.me\/\?text=7%20Keys/,
+  );
+
+  await page.locator(".article-byline").getByRole("link", { name: "Minister Uchechukwu" }).click();
+  await expect(page.getByRole("heading", { name: "Minister Uchechukwu", level: 1 })).toBeVisible();
+  await expect(page.locator(".editorcards .edcard h3")).toContainText([
+    "7 Keys to Building a Christ-Centered Relationship",
+  ]);
+});
+
 test("categories list their articles", async ({ page }) => {
   await page.goto("/categories");
   await page

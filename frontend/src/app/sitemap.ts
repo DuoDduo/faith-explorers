@@ -19,11 +19,13 @@ async function allPublishedPosts(): Promise<PostSummary[]> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [posts, categories] = await Promise.all([allPublishedPosts(), getCategories()]);
+  const authorIds = [...new Set(posts.map((post) => post.author.id))];
   return [
     ...STATIC_PAGES.map((path) => ({ url: `${SITE_URL}${path}` })),
     ...categories
       .filter((c) => c.post_count > 0)
       .map((c) => ({ url: `${SITE_URL}/categories/${c.slug}` })),
+    ...authorIds.map((id) => ({ url: `${SITE_URL}/authors/${id}` })),
     ...posts.map((post) => ({
       url: `${SITE_URL}/articles/${post.slug}`,
       lastModified: post.published_at ?? undefined,

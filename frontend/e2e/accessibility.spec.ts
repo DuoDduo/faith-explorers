@@ -44,6 +44,15 @@ for (const path of PUBLIC_PAGES) {
   });
 }
 
+test("an author page has no accessibility violations", async ({ page }) => {
+  // Author ids change with every re-seed, so reach the page through a byline.
+  await page.goto("/articles/7-keys-to-building-a-christ-centered-relationship");
+  await page.locator(".article-byline .author-name").click();
+  await page.waitForURL(/\/authors\/\d+$/);
+  await page.waitForLoadState("networkidle");
+  await expectNoViolations(page);
+});
+
 test("signed-in pages have no accessibility violations", async ({ page }) => {
   const email = uniqueEmail("a11y");
   await signUp(page, "Ada Access", email);

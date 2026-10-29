@@ -38,6 +38,7 @@ class PostDetail(PostSummary):
 class PostFilters(BaseModel):
     category: str | None = None
     tag: str | None = None
+    author: int | None = None
     q: str | None = None
     featured: bool | None = None
     sort: PostSort = "recent"

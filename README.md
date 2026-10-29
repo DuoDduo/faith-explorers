@@ -93,4 +93,5 @@ them locally.
 - [x] Rate limiting on sign-in, sign-up and public forms
 - [x] Production setup: `docker-compose.prod.yml` with automatic HTTPS, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 - [x] Account settings (profile, photo, password, delete account), newsletter sending, RSS feed
+- [x] Author pages, share links and structured data (rich results) for articles
 - [ ] Go live

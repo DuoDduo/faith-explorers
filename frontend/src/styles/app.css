@@ -1196,3 +1196,61 @@ a.retry-button {
 .about .video-container .image {
   height: auto;
 }
+
+/* ---- Article sharing ---- */
+.share-links {
+  margin: 24px 0;
+}
+
+.share-links h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.share-links ul {
+  gap: 8px;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.share-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--lilac);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--purple);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.share-link:hover {
+  background: var(--lilac);
+}
+
+/* ---- Author pages ---- */
+.authorname .author-name {
+  color: inherit;
+}
+
+.author-name:hover {
+  text-decoration: underline;
+}
+
+.about-author a {
+  color: var(--purple);
+  font-weight: bold;
+}
+
+.author-profile {
+  align-items: center;
+  margin-top: 40px;
+}
+
+.author-profile p {
+  margin: 0;
+  line-height: 1.7;
+}
