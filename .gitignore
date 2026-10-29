@@ -74,3 +74,6 @@ __pycache__/
 
 # Frontend build output
 dist/
+
+# User uploads (kept on a volume, not in git)
+backend/media/uploads/

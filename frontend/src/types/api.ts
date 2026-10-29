@@ -105,3 +105,24 @@ export interface Engagement {
   liked: boolean;
   bookmarked: boolean;
 }
+
+export type PostStatus = "draft" | "pending" | "published";
+
+export interface MyPostSummary extends PostSummary {
+  status: PostStatus;
+  updated_at: string;
+}
+
+export interface MyPost extends PostDetail {
+  status: PostStatus;
+  updated_at: string;
+}
+
+export interface AuthorApplication {
+  id: number;
+  status: "pending" | "approved" | "rejected";
+  motivation: string;
+  created_at: string;
+  reviewed_at: string | null;
+  review_note: string | null;
+}

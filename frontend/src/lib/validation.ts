@@ -36,3 +36,28 @@ export function validateRegistration(values: { name: string; email: string; pass
   }
   return errors;
 }
+
+export interface PostDraftFields {
+  title: string;
+  excerpt: string;
+  body: string;
+  category: string;
+  tags: string;
+}
+
+export const MAX_TAGS = 8;
+
+export function validatePostDraft(values: PostDraftFields): Record<string, string> {
+  const errors: Record<string, string> = {};
+  if (values.title.trim().length < 3) errors.title = "Give your article a title";
+  if (values.excerpt.trim().length < 10) {
+    errors.excerpt = "Write a short summary (at least 10 characters)";
+  } else if (values.excerpt.length > 500) {
+    errors.excerpt = "Keep the summary under 500 characters";
+  }
+  if (!values.body.trim()) errors.body = "The article is empty";
+  if (!values.category) errors.category = "Choose a category";
+  const tags = values.tags.split(",").filter((t) => t.trim());
+  if (tags.length > MAX_TAGS) errors.tags = `Use up to ${MAX_TAGS} tags`;
+  return errors;
+}

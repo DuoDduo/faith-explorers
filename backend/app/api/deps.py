@@ -5,7 +5,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.models import User
+from app.models import Role, User
 from app.services import auth as auth_service
 
 DbSession = Annotated[Session, Depends(get_db)]
@@ -45,3 +45,15 @@ def get_optional_user(db: DbSession, credentials: BearerToken) -> User | None:
 SessionToken = Annotated[str, Depends(get_token)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
 OptionalUser = Annotated[User | None, Depends(get_optional_user)]
+
+
+def get_current_writer(user: CurrentUser) -> User:
+    if user.role not in (Role.AUTHOR, Role.ADMIN):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only authors can do this. Apply to become an author first.",
+        )
+    return user
+
+
+CurrentWriter = Annotated[User, Depends(get_current_writer)]

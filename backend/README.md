@@ -54,6 +54,13 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 | PUT, DELETE | `/api/posts/{slug}/like` | ✓ | Like / unlike (idempotent) |
 | PUT, DELETE | `/api/posts/{slug}/bookmark` | ✓ | Save / unsave (idempotent) |
 | GET | `/api/me/bookmarks` | ✓ | Your saved posts, newest first |
+| POST | `/api/author-applications` | ✓ | Apply to become an author |
+| GET | `/api/me/author-application` | ✓ | Your latest application, or null |
+| GET, POST | `/api/me/posts` | author | List your posts / create a draft |
+| GET, PUT, DELETE | `/api/me/posts/{id}` | author | Read, edit or delete your post |
+| POST | `/api/me/posts/{id}/submit` | author | Send for review (admins: publish) |
+| POST | `/api/me/posts/{id}/withdraw` | author | Back from review to draft |
+| POST | `/api/uploads/images` | author | Upload a JPEG/PNG/WebP (≤ 5 MB), returns its URL |
 | GET | `/api/comments/latest` | | Newest comments site-wide |
 | GET | `/api/categories`, `/api/categories/{slug}` | | Categories with post counts |
 | POST | `/api/contact` | | Store a contact message |
@@ -62,6 +69,9 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 Authenticated requests send `Authorization: Bearer <token>`. Tokens are random, stored only
 as SHA-256 hashes in the `sessions` table, and expire after `SESSION_TTL_DAYS` (default 30).
 Passwords are hashed with Argon2id.
+
+Uploads are decoded and re-encoded with Pillow (which also strips EXIF/GPS data), resized
+to at most 1600px wide and stored under `media/uploads/`. In Docker that folder is a volume.
 
 ## Commands
 

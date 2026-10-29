@@ -80,7 +80,7 @@ cd frontend && npm run lint && npm run typecheck && npm run format:check && npm 
 - [x] Accounts: register, sign in/out, account page, reader / author / admin roles
 - [x] Signed-in readers comment on articles and can delete their own comments (admins: any)
 - [x] Likes and saved articles
-- [ ] "Become an author" applications, author dashboard with a Markdown editor and image upload
-- [ ] Admin: approve posts and authors, moderate comments, read contact messages
+- [x] "Write for us" applications; author dashboard with a Markdown editor, preview and cover uploads
+- [ ] Admin: approve authors and submitted posts, moderate comments, read contact messages
 - [ ] Email: contact-form notifications, newsletter double opt-in
 - [ ] Deployment

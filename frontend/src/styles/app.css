@@ -538,3 +538,208 @@ header nav .logo {
 .account-links a {
   color: var(--purple);
 }
+
+/* ---- Authoring ---- */
+.dashboard {
+  padding: 120px 16px 60px;
+  max-width: 960px;
+}
+
+.account-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.application-card {
+  max-width: 640px;
+}
+
+.field-hint {
+  color: #555;
+  font-size: 13px;
+  margin: -8px 0 16px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-badge--draft {
+  background: #eee;
+  color: #444;
+}
+
+.status-badge--pending {
+  background: #fff3cd;
+  color: #7a5a00;
+}
+
+.status-badge--published {
+  background: #dff3e4;
+  color: #1d7a3a;
+}
+
+.my-posts {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.my-posts__item {
+  transform: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: var(--lilac);
+}
+
+.my-posts__title {
+  color: #000;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.my-posts__meta {
+  color: #555;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.post-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.link-button.danger {
+  color: #b42318;
+}
+
+.post-editor {
+  max-width: none;
+}
+
+.post-editor__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.post-editor select {
+  width: 100%;
+  padding: 15px;
+  margin: 8px 0 16px;
+  border: 1px solid var(--purple);
+  border-radius: 15px;
+  background: var(--lilac);
+  font: inherit;
+}
+
+.post-editor .contact-form label,
+.post-editor label {
+  display: block;
+}
+
+.cover-upload {
+  margin-bottom: 16px;
+}
+
+.cover-upload__label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.cover-upload__preview {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.cover-upload__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.markdown-field__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 8px;
+}
+
+.markdown-field__tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.post-editor .markdown-field__tabs button {
+  margin: 0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--purple);
+  border: 1px solid var(--purple);
+  font-size: 14px;
+}
+
+.post-editor .markdown-field__tabs button[aria-selected="true"] {
+  background: var(--purple);
+  color: #fff;
+}
+
+.markdown-field textarea {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.markdown-field__preview {
+  min-height: 300px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--purple);
+  border-radius: 15px;
+  background: #fff;
+}
+
+@media (max-width: 768px) {
+  .post-editor__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form buttons are styled broadly in .contact-form; keep text-style buttons plain. */
+.contact-form .link-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--purple);
+  font-size: 14px;
+}
+
+.contact-form .link-button:hover {
+  background: none;
+  border: none;
+}
+
+a.retry-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

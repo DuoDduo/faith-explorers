@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.api.routes import (
     auth,
+    authoring,
     categories,
     comments,
     contact,
@@ -12,5 +13,5 @@ from app.api.routes import (
 )
 
 api_router = APIRouter(prefix="/api")
-for module in (health, auth, me, posts, categories, comments, contact, newsletter):
+for module in (health, auth, authoring, me, posts, categories, comments, contact, newsletter):
     api_router.include_router(module.router)

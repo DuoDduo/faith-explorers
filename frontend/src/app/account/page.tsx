@@ -6,6 +6,7 @@ import { AuthCard } from "@/components/auth/AuthCard";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { Avatar } from "@/components/ui/Avatar";
 import { ListSkeleton } from "@/components/ui/Skeletons";
+import { isWriter } from "@/lib/auth/guards";
 import { loginHref } from "@/lib/auth/redirect";
 import { getCurrentUser } from "@/lib/auth/session";
 
@@ -34,6 +35,15 @@ async function AccountDetails() {
         <Link href="/account/saved">
           <i className="fa-solid fa-bookmark" aria-hidden="true"></i> Saved articles
         </Link>
+        {isWriter(user) ? (
+          <Link href="/dashboard">
+            <i className="fa-solid fa-pen" aria-hidden="true"></i> Your articles
+          </Link>
+        ) : (
+          <Link href="/become-an-author">
+            <i className="fa-solid fa-pen" aria-hidden="true"></i> Write for us
+          </Link>
+        )}
       </p>
       <LogoutButton />
     </>

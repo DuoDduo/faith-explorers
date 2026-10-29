@@ -16,3 +16,9 @@ class PostStatus(enum.StrEnum):
 class CommentStatus(enum.StrEnum):
     VISIBLE = "visible"
     HIDDEN = "hidden"
+
+
+class ApplicationStatus(enum.StrEnum):
+    PENDING = "pending"
+    APPROVED = "approved"
+    REJECTED = "rejected"

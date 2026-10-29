@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   output: "standalone",
+  experimental: {
+    // Cover image uploads go through a server action; the API accepts up to 5 MB.
+    serverActions: { bodySizeLimit: "6mb" },
+  },
   images: {
     // Article covers and avatars are served by the API under /media (proxied below),
     // so next/image treats them as local images and can optimize them.
