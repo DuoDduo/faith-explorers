@@ -50,6 +50,7 @@ src/
     app.css               styles added for the new components
   types/api.ts            API response types (mirror backend/app/schemas)
 tests/                    Vitest + Testing Library
+e2e/                      Playwright tests of the main user journeys
 ```
 
 Components that fetch data are async Server Components and are rendered inside `<Suspense>`

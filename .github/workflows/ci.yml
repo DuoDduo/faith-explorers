@@ -72,3 +72,67 @@ jobs:
         run: |
           docker compose config --quiet
           docker compose -f docker-compose.prod.yml config --quiet
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: faith
+          POSTGRES_PASSWORD: faith
+          POSTGRES_DB: faith_explorers
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U faith" --health-interval 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql+psycopg://faith:faith@localhost:5432/faith_explorers
+      E2E_DATABASE_URL: postgresql://faith:faith@localhost:5432/faith_explorers
+      E2E_API_LOG: ${{ github.workspace }}/api.log
+      INTERNAL_API_KEY: e2e
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Start the API with a seeded database
+        working-directory: backend
+        run: |
+          uv sync --frozen
+          uv run alembic upgrade head
+          uv run python -m scripts.seed
+          nohup uv run uvicorn app.main:app --port 8000 > "$E2E_API_LOG" 2>&1 &
+      - name: Build and start the web app
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+          nohup npm start > "$GITHUB_WORKSPACE/web.log" 2>&1 &
+      - name: Install the browser
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+      - name: Wait for both servers
+        run: |
+          for _ in $(seq 1 30); do
+            if curl -sf localhost:8000/api/health && curl -sf -o /dev/null localhost:3000; then exit 0; fi
+            sleep 2
+          done
+          cat api.log web.log
+          exit 1
+      - name: Run end-to-end tests
+        working-directory: frontend
+        run: npm run test:e2e
+      - name: Upload traces and screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: |
+            frontend/test-results
+            api.log
+            web.log
+          retention-days: 7
