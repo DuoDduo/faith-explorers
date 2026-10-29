@@ -6,6 +6,7 @@ from app.models.comment import Comment
 from app.models.contact import ContactMessage
 from app.models.enums import CommentStatus, PostStatus, Role
 from app.models.post import Post, Tag, post_tags
+from app.models.session import UserSession
 from app.models.subscriber import Subscriber
 from app.models.user import User
 
@@ -21,5 +22,6 @@ __all__ = [
     "Subscriber",
     "Tag",
     "User",
+    "UserSession",
     "post_tags",
 ]

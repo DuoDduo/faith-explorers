@@ -18,6 +18,9 @@ npm run dev                  # http://localhost:3000 (the API must be running)
   repeat visits within a few minutes don't hit the backend.
 - **Writes:** forms post to Server Actions in `src/lib/actions/`, which call the API from the
   server. The browser never calls FastAPI directly, so there's no CORS setup or public API URL.
+- **Auth:** the API's session token lives in an httpOnly `fe_session` cookie set by the login
+  and register actions (`src/lib/auth/`). Server code forwards it as a Bearer token; browser
+  JavaScript can't read it. Anything that reads the session renders inside `<Suspense>`.
 - **Images:** `/media/*` is rewritten to the API (see `next.config.ts`), so article covers and
   avatars go through `next/image` optimization like local images.
 
@@ -33,12 +36,14 @@ src/
     posts/                PostCard, PostGrid, PaginatedPosts, ArticleBody…
     comments/             CommentItem, PostComments, LatestComments
     categories/           CategoryCard, CategoryGrid
-    forms/                ContactForm, NewsletterForm, SearchForm, FormField
+    forms/                ContactForm, LoginForm, RegisterForm, NewsletterForm, SearchForm…
+    auth/                 AccountNavItem, AuthCard, LogoutButton
     providers/            client-only setup (scroll animations)
   content/                static copy and navigation
   lib/
     api/                  server-only data access (cached)
-    actions/              Server Actions for form submissions
+    actions/              Server Actions for forms (contact, newsletter, auth, comments)
+    auth/                 session cookie helpers, current user, safe redirects
     format.ts, url.ts, validation.ts
   styles/
     legacy/               the original site's stylesheets, unchanged

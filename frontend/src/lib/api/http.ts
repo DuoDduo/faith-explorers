@@ -23,17 +23,32 @@ function buildUrl(path: string, params?: Params): string {
   return url.toString();
 }
 
-async function request<T>(path: string, init: RequestInit & { params?: Params } = {}): Promise<T> {
-  const { params, ...rest } = init;
-  const res = await fetch(buildUrl(path, params), rest);
+interface RequestOptions {
+  method?: string;
+  params?: Params;
+  body?: unknown;
+  /** Session token of the signed-in user, sent as a Bearer token. */
+  token?: string;
+}
+
+async function request<T>(path: string, { method, params, body, token }: RequestOptions = {}) {
+  const headers: Record<string, string> = {};
+  if (body !== undefined) headers["Content-Type"] = "application/json";
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const res = await fetch(buildUrl(path, params), {
+    method,
+    headers,
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
   if (!res.ok) {
     throw new ApiError(res.status, (await res.json().catch(() => null))?.detail);
   }
-  return res.json() as Promise<T>;
+  return (res.status === 204 ? undefined : await res.json()) as T;
 }
 
-export function apiGet<T>(path: string, params?: Params): Promise<T> {
-  return request<T>(path, { params });
+export function apiGet<T>(path: string, params?: Params, token?: string): Promise<T> {
+  return request<T>(path, { params, token });
 }
 
 /** GET that resolves to null on 404 instead of throwing. */
@@ -46,10 +61,10 @@ export async function apiGetOrNull<T>(path: string): Promise<T | null> {
   }
 }
 
-export function apiPost<T>(path: string, body?: unknown): Promise<T> {
-  return request<T>(path, {
-    method: "POST",
-    headers: body === undefined ? undefined : { "Content-Type": "application/json" },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
+export function apiPost<T>(path: string, body?: unknown, token?: string): Promise<T> {
+  return request<T>(path, { method: "POST", body, token });
+}
+
+export function apiDelete(path: string, token?: string): Promise<void> {
+  return request<void>(path, { method: "DELETE", token });
 }

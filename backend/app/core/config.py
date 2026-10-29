@@ -10,9 +10,10 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://faith:faith@localhost:5432/faith_explorers"
     # Comma-separated list of origins allowed to call the API from a browser.
-    cors_origins: str = "http://localhost:5173"
+    cors_origins: str = "http://localhost:3000"
     media_dir: Path = BASE_DIR / "media"
     media_url: str = "/media"
+    session_ttl_days: int = 30
 
     @property
     def cors_origin_list(self) -> list[str]:
