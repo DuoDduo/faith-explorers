@@ -64,3 +64,13 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Frontend build output
+dist/
