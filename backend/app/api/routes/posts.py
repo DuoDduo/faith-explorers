@@ -3,6 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter, Query, status
 
 from app.api.deps import CurrentUser, DbSession, OptionalUser
+from app.core import rate_limit
+from app.core.rate_limit import limiter
 from app.models import Comment, Post
 from app.schemas import (
     CommentIn,
@@ -49,6 +51,7 @@ def list_post_comments(slug: str, db: DbSession) -> list[Comment]:
 
 @router.post("/{slug}/comments", response_model=CommentOut, status_code=status.HTTP_201_CREATED)
 def add_comment(slug: str, payload: CommentIn, user: CurrentUser, db: DbSession) -> Comment:
+    limiter.consume(f"comment:{user.id}", rate_limit.COMMENTS_PER_USER)
     post = post_service.get_published(db, slug)
     return comment_service.add_comment(db, post, user, payload.body)
 

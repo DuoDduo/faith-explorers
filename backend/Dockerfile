@@ -11,5 +11,6 @@ COPY . .
 ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE 8000
-# Apply pending migrations, then serve.
-CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+# Apply pending migrations, then serve. One worker: rate-limit counters live in memory.
+# PORT is set by most hosting platforms; default to 8000.
+CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]

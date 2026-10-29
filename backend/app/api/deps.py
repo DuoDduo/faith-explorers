@@ -1,14 +1,22 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.core.rate_limit import client_ip
 from app.models import Role, User
 from app.services import auth as auth_service
 
 DbSession = Annotated[Session, Depends(get_db)]
+
+
+def get_client_ip(request: Request) -> str:
+    return client_ip(request)
+
+
+ClientIP = Annotated[str, Depends(get_client_ip)]
 
 _bearer = HTTPBearer(auto_error=False)
 BearerToken = Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer)]

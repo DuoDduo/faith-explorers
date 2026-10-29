@@ -38,3 +38,12 @@ class AuthOut(BaseModel):
     user: UserOut
     token: str
     expires_at: datetime
+
+
+class PasswordResetRequestIn(BaseModel):
+    email: EmailStr
+
+
+class PasswordResetConfirmIn(BaseModel):
+    token: str = Field(min_length=10, max_length=200)
+    password: str = Field(min_length=8, max_length=128)

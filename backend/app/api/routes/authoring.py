@@ -4,6 +4,8 @@ from fastapi import APIRouter, Query, Response, UploadFile, status
 from fastapi.concurrency import run_in_threadpool
 
 from app.api.deps import CurrentUser, CurrentWriter, DbSession
+from app.core import rate_limit
+from app.core.rate_limit import limiter
 from app.models import AuthorApplication, Post
 from app.schemas import (
     ApplicationIn,
@@ -24,6 +26,7 @@ router = APIRouter(tags=["authoring"])
     "/author-applications", response_model=ApplicationOut, status_code=status.HTTP_201_CREATED
 )
 def apply_to_write(payload: ApplicationIn, user: CurrentUser, db: DbSession) -> AuthorApplication:
+    limiter.consume(f"apply:{user.id}", rate_limit.APPLICATIONS_PER_USER)
     return authoring.apply(db, user, payload)
 
 
@@ -74,7 +77,8 @@ def delete_post(post_id: int, user: CurrentWriter, db: DbSession) -> Response:
 
 
 @router.post("/uploads/images", response_model=UploadOut, status_code=status.HTTP_201_CREATED)
-async def upload_image(file: UploadFile, _: CurrentWriter) -> UploadOut:
+async def upload_image(file: UploadFile, user: CurrentWriter) -> UploadOut:
+    limiter.consume(f"upload:{user.id}", rate_limit.UPLOADS_PER_USER)
     data = await file.read(upload_service.MAX_BYTES + 1)
     # Decoding and resizing is CPU work; keep it off the event loop.
     return UploadOut(url=await run_in_threadpool(upload_service.save_image, data))

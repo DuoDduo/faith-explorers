@@ -27,7 +27,7 @@ app/
     routes/          thin HTTP handlers that call services
   utils/             small pure helpers
 alembic/             migrations
-scripts/             seed.py (legacy import), optimize_images.py
+scripts/             seed.py + seed_data/ (legacy import), optimize_images.py
 tests/
   api/               endpoint tests (in-memory SQLite, seeded)
   unit/              pure-function tests
@@ -44,6 +44,8 @@ Adding a feature usually means: model -> migration -> schema -> service -> route
 | POST | `/api/auth/login` | | Exchange email + password for a session token |
 | POST | `/api/auth/logout` | ✓ | Revoke the current session |
 | GET | `/api/auth/me` | ✓ | The signed-in user |
+| POST | `/api/auth/password-reset` | | Email a one-hour reset link (same reply for unknown emails) |
+| POST | `/api/auth/password-reset/confirm` | | Set a new password from a link; signs out every session |
 | GET | `/api/posts` | | Published posts (`category`, `tag`, `q`, `featured`, `sort`, `page`, `page_size`) |
 | GET | `/api/posts/{slug}` | | One post with its Markdown body |
 | POST | `/api/posts/{slug}/views` | | Count a view |
@@ -78,7 +80,8 @@ themselves, so there's always at least one.
 | GET | `/api/comments/latest` | | Newest comments site-wide |
 | GET | `/api/categories`, `/api/categories/{slug}` | | Categories with post counts |
 | POST | `/api/contact` | | Store a contact message |
-| POST | `/api/newsletter/subscribe` | | Add a subscriber |
+| POST | `/api/newsletter/subscribe` | | Start a subscription and email a confirmation link |
+| POST | `/api/newsletter/confirm`, `/unsubscribe` | | Confirm (double opt-in) or leave with a token from an email |
 
 Authenticated requests send `Authorization: Bearer <token>`. Tokens are random, stored only
 as SHA-256 hashes in the `sessions` table, and expire after `SESSION_TTL_DAYS` (default 30).
@@ -86,6 +89,41 @@ Passwords are hashed with Argon2id.
 
 Uploads are decoded and re-encoded with Pillow (which also strips EXIF/GPS data), resized
 to at most 1600px wide and stored under `media/uploads/`. In Docker that folder is a volume.
+
+## Email
+
+Emails are plain text and sent in the background after the response, so a slow or failing
+mail server never affects the request. Set `EMAIL_BACKEND`:
+
+- `console` (default): emails are written to the API log. Handy in development.
+- `smtp`: sent through any SMTP provider (Gmail, Brevo, Resend, Postmark, Mailgun…) using
+  `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` and `EMAIL_FROM`.
+
+What gets sent: password reset links and "password changed" notices, newsletter confirmation
+links, contact-form messages (to `CONTACT_NOTIFY_EMAIL`, with Reply-To set to the visitor),
+and emails to writers when their application or article is reviewed. Links point at
+`SITE_URL`.
+
+## Rate limits
+
+Abuse-prone endpoints are rate limited (`app/core/rate_limit.py`) and answer `429` with a
+`Retry-After` header when a limit is hit:
+
+| What | Limit |
+|---|---|
+| Sign-in | 20 per IP / 15 min, and 5 *failed* attempts per account / 15 min |
+| Sign-up | 5 per IP / hour |
+| Contact form | 5 per IP / hour |
+| Newsletter sign-up | 10 per IP / hour |
+| Comments | 10 per user / 10 min |
+| Image uploads | 30 per user / hour |
+| Author applications | 3 per user / day |
+| Password reset requests | 5 per IP and 3 per email / hour |
+
+All traffic reaches the API through the Next.js server, which forwards the visitor's IP in
+`X-Client-IP`. The API only trusts that header when the request also carries the shared
+`INTERNAL_API_KEY`, so it can't be spoofed by calling the API directly. Counters are kept in
+memory, which suits one API instance; use a shared store such as Redis before scaling out.
 
 ## Commands
 

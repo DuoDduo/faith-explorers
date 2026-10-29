@@ -23,6 +23,7 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://faith:faith@db:5432/faith_explorers
       CORS_ORIGINS: http://localhost:3000
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:-local-dev-key}
     ports:
       - "8000:8000"
     volumes:
@@ -35,10 +36,11 @@ services:
     build:
       context: ./frontend
       args:
-        API_URL: http://api:8000
+        SITE_URL: http://localhost:3000
     environment:
       API_URL: http://api:8000
       SITE_URL: http://localhost:3000
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:-local-dev-key}
     ports:
       - "3000:3000"
     depends_on:

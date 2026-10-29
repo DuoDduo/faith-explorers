@@ -18,5 +18,8 @@ export function formStateFromError(error: unknown, fallback: string): FormState 
     }
     return { status: "error", message: "Please check the highlighted fields.", fieldErrors };
   }
+  if (error instanceof ApiError && error.status === 429) {
+    return { status: "error", message: String(error.detail) };
+  }
   return { status: "error", message: fallback };
 }

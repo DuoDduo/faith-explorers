@@ -7,6 +7,7 @@ from app.models.comment import Comment
 from app.models.contact import ContactMessage
 from app.models.engagement import Bookmark, PostLike
 from app.models.enums import ApplicationStatus, CommentStatus, PostStatus, Role
+from app.models.password_reset import PasswordResetToken
 from app.models.post import Post, Tag, post_tags
 from app.models.session import UserSession
 from app.models.subscriber import Subscriber
@@ -21,6 +22,7 @@ __all__ = [
     "Comment",
     "CommentStatus",
     "ContactMessage",
+    "PasswordResetToken",
     "Post",
     "PostLike",
     "PostStatus",

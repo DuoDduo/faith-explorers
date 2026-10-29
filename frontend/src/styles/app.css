@@ -1011,3 +1011,13 @@ a.retry-button {
   padding: 4px 10px;
   font-size: 13px;
 }
+
+.forgot-link {
+  margin: -8px 0 16px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.forgot-link a {
+  color: var(--purple);
+}

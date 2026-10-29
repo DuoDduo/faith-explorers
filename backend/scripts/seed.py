@@ -1,4 +1,4 @@
-"""Import the legacy static-site content (legacy/*.json) into the database.
+"""Import the legacy static-site content (scripts/seed_data/*.json) into the database.
 
 The old site kept articles in three overlapping JSON files with no IDs, dates or
 authors for most entries. This script merges them into real rows:
@@ -37,7 +37,9 @@ from app.models import (
 )
 from app.utils.text import read_time_minutes, slugify
 
-LEGACY = Path(__file__).resolve().parents[2] / "legacy"
+# Copies of the old site's JSON (legacy/*.json), kept with the backend so seeding also
+# works inside the API's Docker image.
+SEED_DATA = Path(__file__).resolve().parent / "seed_data"
 
 CATEGORY_COVERS = {
     "Faith and Spirituality": "HOE MAY-17.jpg",
@@ -171,10 +173,10 @@ class Seeder:
         return post
 
     def run(self) -> None:
-        blog = json.loads((LEGACY / "blog-data.json").read_text())
-        featured_ids = {p["id"] for p in json.loads((LEGACY / "index.json").read_text())}
-        by_category = json.loads((LEGACY / "category.json").read_text())
-        popular = json.loads((LEGACY / "popular.json").read_text())
+        blog = json.loads((SEED_DATA / "blog-data.json").read_text())
+        featured_ids = {p["id"] for p in json.loads((SEED_DATA / "index.json").read_text())}
+        by_category = json.loads((SEED_DATA / "category.json").read_text())
+        popular = json.loads((SEED_DATA / "popular.json").read_text())
 
         team = self.user(EDITORIAL_TEAM, "sopimages/Faith.png", Role.ADMIN)
         posts: list[Post] = []

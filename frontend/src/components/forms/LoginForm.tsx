@@ -7,12 +7,17 @@ import { FormStatus } from "@/components/forms/FormStatus";
 import { login } from "@/lib/actions/auth";
 import { initialFormState } from "@/lib/actions/form-state";
 
-export function LoginForm({ next }: { next?: string }) {
+export function LoginForm({ next, notice }: { next?: string; notice?: string }) {
   const [state, formAction, pending] = useActionState(login, initialFormState);
   const errors = state.fieldErrors ?? {};
 
   return (
     <form className="contact-form" action={formAction} noValidate>
+      {notice && state.status === "idle" && (
+        <p className="form-success" role="status">
+          {notice}
+        </p>
+      )}
       <input type="hidden" name="next" value={next ?? "/"} />
       <FormField
         name="email"
@@ -31,6 +36,9 @@ export function LoginForm({ next }: { next?: string }) {
         required
         error={errors.password}
       />
+      <p className="forgot-link">
+        <Link href="/forgot-password">Forgot your password?</Link>
+      </p>
       <button type="submit" disabled={pending}>
         {pending ? "Signing in…" : "Sign in"}
       </button>
