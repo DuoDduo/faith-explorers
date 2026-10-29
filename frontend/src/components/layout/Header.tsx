@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { type ReactNode, Suspense, useEffect, useState } from "react";
 import { MAIN_NAV } from "@/content/navigation";
 
 function isActive(pathname: string, href: string): boolean {
@@ -14,9 +14,10 @@ interface NavListProps {
   /** null while the current URL isn't known yet (static shell): no link is highlighted. */
   pathname: string | null;
   onNavigate: () => void;
+  account: ReactNode;
 }
 
-function NavList({ pathname, onNavigate }: NavListProps) {
+function NavList({ pathname, onNavigate, account }: NavListProps) {
   return (
     <ul className="flex">
       {MAIN_NAV.map(({ href, label }) => {
@@ -34,15 +35,17 @@ function NavList({ pathname, onNavigate }: NavListProps) {
           </li>
         );
       })}
+      <li onClick={onNavigate}>{account}</li>
     </ul>
   );
 }
 
-function CurrentNavList({ onNavigate }: Pick<NavListProps, "onNavigate">) {
-  return <NavList pathname={usePathname()} onNavigate={onNavigate} />;
+function CurrentNavList(props: Omit<NavListProps, "pathname">) {
+  return <NavList pathname={usePathname()} {...props} />;
 }
 
-export function Header() {
+/** `account` is the server-rendered sign-in/account link (it reads the session cookie). */
+export function Header({ account }: { account: ReactNode }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -66,8 +69,8 @@ export function Header() {
         </Link>
 
         <div className={`navlist flex${menuOpen ? " open" : ""}`} id="main-menu">
-          <Suspense fallback={<NavList pathname={null} onNavigate={closeMenu} />}>
-            <CurrentNavList onNavigate={closeMenu} />
+          <Suspense fallback={<NavList pathname={null} onNavigate={closeMenu} account={account} />}>
+            <CurrentNavList onNavigate={closeMenu} account={account} />
           </Suspense>
         </div>
 

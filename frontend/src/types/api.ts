@@ -56,7 +56,7 @@ export interface Comment {
   id: number;
   body: string;
   created_at: string;
-  user: { name: string; avatar_url: string | null };
+  user: { id: number; name: string; avatar_url: string | null };
   post: { slug: string; title: string };
 }
 
@@ -80,4 +80,21 @@ export interface ContactInput {
 
 export interface Message {
   detail: string;
+}
+
+export type Role = "reader" | "author" | "admin";
+
+export interface User {
+  id: number;
+  name: string;
+  email: string | null;
+  avatar_url: string | null;
+  bio: string | null;
+  role: Role;
+}
+
+export interface AuthResponse {
+  user: User;
+  token: string;
+  expires_at: string;
 }

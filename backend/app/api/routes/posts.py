@@ -1,10 +1,19 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, status
 
-from app.api.deps import DbSession
+from app.api.deps import CurrentUser, DbSession
 from app.models import Comment, Post
-from app.schemas import CommentOut, Page, PostDetail, PostFilters, PostSummary, ViewsOut
+from app.schemas import (
+    CommentIn,
+    CommentOut,
+    Page,
+    PostDetail,
+    PostFilters,
+    PostSummary,
+    ViewsOut,
+)
+from app.services import comments as comment_service
 from app.services import posts as post_service
 
 router = APIRouter(prefix="/posts", tags=["posts"])
@@ -34,3 +43,9 @@ def record_view(slug: str, db: DbSession) -> ViewsOut:
 @router.get("/{slug}/comments", response_model=list[CommentOut])
 def list_post_comments(slug: str, db: DbSession) -> list[Comment]:
     return post_service.list_comments(db, slug)
+
+
+@router.post("/{slug}/comments", response_model=CommentOut, status_code=status.HTTP_201_CREATED)
+def add_comment(slug: str, payload: CommentIn, user: CurrentUser, db: DbSession) -> Comment:
+    post = post_service.get_published(db, slug)
+    return comment_service.add_comment(db, post, user, payload.body)

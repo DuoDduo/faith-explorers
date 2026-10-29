@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isEmail, validateContact } from "@/lib/validation";
+import { isEmail, validateContact, validateLogin, validateRegistration } from "@/lib/validation";
 
 describe("validateContact", () => {
   it("accepts a complete message", () => {
@@ -20,5 +20,25 @@ describe("isEmail", () => {
     expect(isEmail("a@b.co")).toBe(true);
     expect(isEmail("a@b")).toBe(false);
     expect(isEmail("a b@c.com")).toBe(false);
+  });
+});
+
+describe("validateRegistration", () => {
+  it("requires a name, valid email and 8+ character password", () => {
+    expect(validateRegistration({ name: "", email: "x", password: "short" })).toEqual({
+      name: "Name is required",
+      email: "Invalid email address",
+      password: "Use at least 8 characters",
+    });
+    expect(
+      validateRegistration({ name: "Ada", email: "ada@example.com", password: "long enough" }),
+    ).toEqual({});
+  });
+});
+
+describe("validateLogin", () => {
+  it("only checks the fields are filled in sensibly", () => {
+    expect(validateLogin({ email: "ada@example.com", password: "x" })).toEqual({});
+    expect(Object.keys(validateLogin({ email: "", password: "" }))).toEqual(["email", "password"]);
   });
 });

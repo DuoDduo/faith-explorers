@@ -36,6 +36,29 @@ media/               uploaded and seeded images served at /media
 
 Adding a feature usually means: model -> migration -> schema -> service -> route -> test.
 
+## API
+
+| Method | Path | Auth | Purpose |
+|---|---|---|---|
+| POST | `/api/auth/register` | | Create a reader account, returns a session token |
+| POST | `/api/auth/login` | | Exchange email + password for a session token |
+| POST | `/api/auth/logout` | ✓ | Revoke the current session |
+| GET | `/api/auth/me` | ✓ | The signed-in user |
+| GET | `/api/posts` | | Published posts (`category`, `tag`, `q`, `featured`, `sort`, `page`, `page_size`) |
+| GET | `/api/posts/{slug}` | | One post with its Markdown body |
+| POST | `/api/posts/{slug}/views` | | Count a view |
+| GET | `/api/posts/{slug}/comments` | | Visible comments on a post |
+| POST | `/api/posts/{slug}/comments` | ✓ | Add a comment |
+| DELETE | `/api/comments/{id}` | ✓ | Delete your own comment (admins: any) |
+| GET | `/api/comments/latest` | | Newest comments site-wide |
+| GET | `/api/categories`, `/api/categories/{slug}` | | Categories with post counts |
+| POST | `/api/contact` | | Store a contact message |
+| POST | `/api/newsletter/subscribe` | | Add a subscriber |
+
+Authenticated requests send `Authorization: Bearer <token>`. Tokens are random, stored only
+as SHA-256 hashes in the `sessions` table, and expire after `SESSION_TTL_DAYS` (default 30).
+Passwords are hashed with Argon2id.
+
 ## Commands
 
 | Task | Command |

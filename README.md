@@ -77,8 +77,9 @@ cd frontend && npm run lint && npm run typecheck && npm run format:check && npm 
 - [x] Next.js frontend with the original design; articles have their own URLs
 - [x] FastAPI + Postgres backend, migrations, legacy content import
 - [x] Working contact form and newsletter sign-up
-- [ ] Accounts: register / login, roles reader / author / admin
-- [ ] Readers post comments and like posts
+- [x] Accounts: register, sign in/out, account page, reader / author / admin roles
+- [x] Signed-in readers comment on articles and can delete their own comments (admins: any)
+- [ ] Likes and bookmarks
 - [ ] "Become an author" applications, author dashboard with a Markdown editor and image upload
 - [ ] Admin: approve posts and authors, moderate comments, read contact messages
 - [ ] Email: contact-form notifications, newsletter double opt-in
