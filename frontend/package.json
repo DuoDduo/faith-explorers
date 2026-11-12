@@ -16,15 +16,15 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.3.1",
     "aos": "^2.3.4",
-    "next": "16.4.3",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
+    "next": "16.4.5",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "react-markdown": "^10.1.0",
     "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.65.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
@@ -33,12 +33,12 @@
     "@types/node": "^24.19.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^6.1.2",
+    "@vitejs/plugin-react": "^6.2.1",
     "eslint": "^9",
-    "eslint-config-next": "16.4.3",
+    "eslint-config-next": "16.4.5",
     "jsdom": "^29.1.1",
     "prettier": "^3.9.10",
     "typescript": "^5",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.0"
   }
 }
